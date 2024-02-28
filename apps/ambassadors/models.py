@@ -3,15 +3,15 @@ from django.db import models
 
 class Status(models.Model):
     name = models.CharField(
-        verbose_name='Название статуса',
+        verbose_name="Название статуса",
         max_length=20,
         unique=True,
         null=False,
     )
 
     class Meta:
-        verbose_name = 'статус'
-        verbose_name_plural = 'статусы'
+        verbose_name = "статус"
+        verbose_name_plural = "статусы"
 
     def __str__(self):
         return self.name
@@ -19,15 +19,15 @@ class Status(models.Model):
 
 class Program(models.Model):
     name = models.CharField(
-        verbose_name='Название программы',
+        verbose_name="Название программы",
         max_length=30,
         unique=True,
         null=False,
     )
 
     class Meta:
-        verbose_name = 'программа'
-        verbose_name_plural = 'программы'
+        verbose_name = "программа"
+        verbose_name_plural = "программы"
 
     def __str__(self):
         return self.name
@@ -71,27 +71,27 @@ class Promocode(models.Model):
     ambassador = models.ForeignKey(
         Ambassador,
         on_delete=models.CASCADE,
-        verbose_name='Амбасадор',
+        verbose_name="Амбасадор",
     )
     value = models.CharField(
-        verbose_name='Значение промокода',
+        verbose_name="Значение промокода",
         max_length=20,
         null=False,
     )
     replaced_at = models.DateField(
-        verbose_name='Дата замены',
+        verbose_name="Дата замены",
         null=True,
         blank=True,
     )
     is_current = models.BooleanField(
-        verbose_name='Текущий',
+        verbose_name="Текущий",
         default=True,
         null=False,
     )
 
     class Meta:
-        verbose_name = 'промокод'
-        verbose_name_plural = 'промокоды'
+        verbose_name = "промокод"
+        verbose_name_plural = "промокоды"
 
     def __str__(self):
         return self.value
