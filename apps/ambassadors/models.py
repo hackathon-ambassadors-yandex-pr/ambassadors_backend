@@ -188,6 +188,8 @@ class AmbassadorTarget(models.Model):
             "ambassador",
             "target",
         )
+        verbose_name = "цель амбассадора"
+        verbose_name_plural = "цели амбассадоров"
 
     def __str__(self):
         return f"{self.ambassador.first_name} {self.ambassador.last_name} - {self.target.name}"
@@ -252,7 +254,7 @@ class Address(models.Model):
         null=False,
     )
     replaced_at = models.DateField(
-        verbose_name="Дата замены",
+        verbose_name="Дата изменения",
         null=True,
         blank=True,
     )
