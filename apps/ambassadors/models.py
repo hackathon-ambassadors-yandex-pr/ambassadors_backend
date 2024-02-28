@@ -66,7 +66,49 @@ class Ambassador(models.Model):
 
 
 class Target(models.Model):
-    pass
+    name = models.CharField(
+        verbose_name="Название цели",
+        max_length=30,
+        unique=True,
+        null=False,
+    )
+    ambassadors = models.ManyToManyField(
+        Ambassador,
+        through="AmbassadorTarget",
+        verbose_name="Амбасадоры",
+        related_name="targets",
+    )
+
+    class Meta:
+        verbose_name = "цель"
+        verbose_name_plural = "цели"
+
+    def __str__(self):
+        return self.name
+
+
+class AmbassadorTarget(models.Model):
+    ambassador = models.ForeignKey(
+        Ambassador,
+        on_delete=models.CASCADE,
+        verbose_name="Амбасадор",
+        related_name="ambassador_target",
+    )
+    target = models.ForeignKey(
+        Target,
+        on_delete=models.CASCADE,
+        verbose_name="Цель",
+        related_name="ambassador_target",
+    )
+
+    class Meta:
+        unique_together = (
+            "ambassador",
+            "target",
+        )
+
+    def __str__(self):
+        return f"{self.ambassador.first_name} {self.ambassador.last_name} - {self.target.name}"
 
 
 class Promocode(models.Model):
