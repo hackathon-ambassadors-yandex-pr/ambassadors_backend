@@ -41,6 +41,7 @@ class Ambassador(models.Model):
     status = models.ForeignKey(
         Status,
         on_delete=models.CASCADE,
+        related_name="ambassadors",
     )
     registration_date = models.DateField()
     user_comment = models.TextField()
@@ -60,6 +61,7 @@ class Ambassador(models.Model):
     program = models.ForeignKey(
         Program,
         on_delete=models.CASCADE,
+        related_name="ambassadors",
     )
 
 
@@ -72,6 +74,7 @@ class Promocode(models.Model):
         Ambassador,
         on_delete=models.CASCADE,
         verbose_name="Амбасадор",
+        related_name="promocodes",
     )
     value = models.CharField(
         verbose_name="Значение промокода",
@@ -98,4 +101,46 @@ class Promocode(models.Model):
 
 
 class Address(models.Model):
-    pass
+    ambassador = models.ForeignKey(
+        Ambassador,
+        on_delete=models.CASCADE,
+        verbose_name="амбасадор",
+        related_name="addresses",
+    )
+    country = models.CharField(
+        verbose_name="Страна",
+        max_length=20,
+        null=False,
+    )
+    city = models.CharField(
+        verbose_name="Город",
+        max_length=20,
+        null=False,
+    )
+    address = models.CharField(
+        verbose_name="Адрес",
+        max_length=50,
+        null=False,
+    )
+    code = models.CharField(
+        verbose_name="Почтовый индекс",
+        max_length=10,
+        null=False,
+    )
+    replaced_at = models.DateField(
+        verbose_name="Дата замены",
+        null=True,
+        blank=True,
+    )
+    is_current = models.BooleanField(
+        verbose_name="Текущий",
+        default=True,
+        null=False,
+    )
+
+    class Meta:
+        verbose_name = "адрес"
+        verbose_name_plural = "адреса"
+
+    def __str__(self):
+        return f"{self.country}, {self.city}, {self.address}"
