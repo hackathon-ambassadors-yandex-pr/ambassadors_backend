@@ -17,7 +17,7 @@ class StatusAdmin(admin.ModelAdmin):
 
 
 @admin.register(Program)
-class StatusAdmin(admin.ModelAdmin):
+class ProgramAdmin(admin.ModelAdmin):
     list_display = ("id", "name")
 
 
@@ -29,21 +29,29 @@ class AmbassadorAdmin(admin.ModelAdmin):
 
 
 @admin.register(Target)
-class StatusAdmin(admin.ModelAdmin):
+class TargetAdmin(admin.ModelAdmin):
     list_display = ("id", "name")
 
 
 @admin.register(AmbassadorTarget)
-class StatusAdmin(admin.ModelAdmin):
+class AmbassadorTargetAdmin(admin.ModelAdmin):
     list_display = ("id", "ambassador", "target")
 
 
 @admin.register(Promocode)
-class StatusAdmin(admin.ModelAdmin):
-    list_display = ("value", "ambassador", "replaced_at", "is_current")
+class PromocodeAdmin(admin.ModelAdmin):
+    list_display = ("id", "value", "ambassador", "replaced_at", "is_current")
 
 
 @admin.register(Address)
-class StatusAdmin(admin.ModelAdmin):
-    list_display = ("ambassador", "country", "city", "address", "code", "is_current")
+class AddressAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "ambassador",
+        "country",
+        "city",
+        "address",
+        "code",
+        "is_current",
+    )
     search_fields = ("country", "city")
