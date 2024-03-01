@@ -3,7 +3,6 @@ from django.contrib import admin
 from apps.ambassadors.models import (
     Address,
     Ambassador,
-    AmbassadorTarget,
     Program,
     Promocode,
     Status,
@@ -31,11 +30,6 @@ class AmbassadorAdmin(admin.ModelAdmin):
 @admin.register(Target)
 class TargetAdmin(admin.ModelAdmin):
     list_display = ("id", "name")
-
-
-@admin.register(AmbassadorTarget)
-class AmbassadorTargetAdmin(admin.ModelAdmin):
-    list_display = ("id", "ambassador", "target")
 
 
 @admin.register(Promocode)
