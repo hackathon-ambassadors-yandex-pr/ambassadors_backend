@@ -1,5 +1,7 @@
 from django.db import models
 
+from apps.ambassadors.choice_classes import ClothingSize, EducationTarget, Gender
+
 
 class Status(models.Model):
     """Модель статуса."""
@@ -55,25 +57,6 @@ class Target(models.Model):
 class Ambassador(models.Model):
     """Модель амбассадора."""
 
-    CLOTHING_SIZE_CHOICES = [
-        ("XS", "Extra Small"),
-        ("S", "Small"),
-        ("M", "Medium"),
-        ("L", "Large"),
-        ("XL", "Extra Large"),
-    ]
-    EDUCATION_TARGET_CHOICES = [
-        ("NEW_PROFESSION", "получение новой профессии, чтобы сменить работу"),
-        (
-            "DEEPEN_KNOWLEDGE",
-            "углубление имеющихся знаний, чтобы использовать их в текущей работе",
-        ),
-        ("OTHER", "свой вариант"),
-    ]
-    GENDER_CHOICES = [
-        ("М", "Male"),
-        ("Ж", "Female"),
-    ]
     first_name = models.CharField(
         verbose_name="имя",
         max_length=20,
@@ -89,7 +72,7 @@ class Ambassador(models.Model):
     gender = models.CharField(
         verbose_name="пол",
         max_length=5,
-        choices=GENDER_CHOICES,
+        choices=Gender.choices,
     )
     status = models.ForeignKey(
         Status,
@@ -109,7 +92,7 @@ class Ambassador(models.Model):
     clothing_size = models.CharField(
         verbose_name="размер одежды",
         max_length=5,
-        choices=CLOTHING_SIZE_CHOICES,
+        choices=ClothingSize.choices,
     )
     shoe_size = models.CharField(
         verbose_name="размер обуви",
@@ -118,16 +101,20 @@ class Ambassador(models.Model):
     telegram_login = models.CharField(
         verbose_name="имя пользователя телеграм",
         max_length=20,
+        unique=True,
     )
     email = models.EmailField(
         verbose_name="email",
+        unique=True,
     )
     mobile_phone = models.CharField(
         verbose_name="номер телефона",
         max_length=20,
+        unique=True,
     )
     blog_link = models.URLField(
         verbose_name="ссылка на блог",
+        unique=True,
     )
     education = models.TextField(
         verbose_name="образование",
@@ -137,7 +124,7 @@ class Ambassador(models.Model):
     )
     education_target = models.TextField(
         verbose_name="цель образования",
-        choices=EDUCATION_TARGET_CHOICES,
+        choices=EducationTarget.choices,
     )
     education_target_own = models.TextField(
         verbose_name="своя цель образования",
