@@ -71,7 +71,7 @@ class Ambassador(models.Model):
     )
     gender = models.CharField(
         verbose_name="пол",
-        max_length=5,
+        max_length=6,
         choices=Gender.choices,
     )
     status = models.ForeignKey(
