@@ -14,16 +14,16 @@ class ClothingSize(models.TextChoices):
 class EducationTarget(models.TextChoices):
     """Цели обучения."""
 
-    NEW_PROFESSION = "Получение новой профессии, чтобы сменить работу", "New profession"
+    NEW_PROFESSION = "New profession", "Получение новой профессии, чтобы сменить работу"
     DEEPEN_KNOWLEDGE = (
-        "Углубление имеющихся знаний, чтобы использовать их в текущей работе",
         "Deepen knowledge",
+        "Углубление имеющихся знаний, чтобы использовать их в текущей работе",
     )
-    OTHER = "Свой вариант", "Other"
+    OTHER = "Other", "Свой вариант"
 
 
 class Gender(models.TextChoices):
     """Пол."""
 
-    MALE = "М", "Male"
-    FEMALE = "Ж", "Female"
+    MALE = "Male", "М"
+    FEMALE = "Female", "Ж"
