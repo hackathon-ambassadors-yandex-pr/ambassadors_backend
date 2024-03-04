@@ -26,7 +26,7 @@ class SendingMerchInline(admin.TabularInline):
 class SendingAdmin(admin.ModelAdmin):
     """Настройки админ сайта для таблицы Sending."""
 
-    list_display = ("id", "uid", "created_at", "status")
+    list_display = ("id", "created_at", "status")
     list_filter = ("status",)
-    readonly_fields = ("uid", "created_at")
+    readonly_fields = ("created_at",)
     inlines = (SendingMerchInline,)

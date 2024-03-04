@@ -1,5 +1,7 @@
 """Настройки БД приложения Sendings."""
 
+import uuid
+
 from django.core.validators import MinValueValidator
 from django.db import models
 
@@ -35,8 +37,9 @@ class Merch(models.Model):
 class Sending(models.Model):
     """Параметры таблицы Sending."""
 
-    uid = models.CharField(
-        "UID отправки",
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
         editable=False,
     )
     address = models.ForeignKey(
@@ -75,11 +78,6 @@ class Sending(models.Model):
 
     def __str__(self):
         return str(self.pk)
-
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            self.uid = f"A {self.pk}"
-        super().save(*args, **kwargs)
 
 
 class SendingToMerch(models.Model):
