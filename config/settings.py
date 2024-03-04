@@ -33,7 +33,7 @@ THIRD_PARTY_APPS = [
     "apps.ambassadors",
     "apps.api",
     "apps.content",
-    "apps.merch",
+    "apps.sendings",
     "apps.users",
 ]
 
