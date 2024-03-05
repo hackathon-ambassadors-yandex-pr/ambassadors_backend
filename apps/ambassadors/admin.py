@@ -49,3 +49,4 @@ class AddressAdmin(admin.ModelAdmin):
         "is_current",
     )
     search_fields = ("country", "city")
+    readonly_fields = ("replaced_at",)

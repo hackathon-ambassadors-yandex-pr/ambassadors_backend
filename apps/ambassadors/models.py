@@ -98,9 +98,9 @@ class Ambassador(models.Model):
         verbose_name="размер обуви",
         max_length=5,
     )
-    telegram_login = models.CharField(
-        verbose_name="имя пользователя телеграм",
-        max_length=20,
+    telegram_link = models.URLField(
+        verbose_name="ссылка на телеграм",
+        max_length=50,
         unique=True,
     )
     email = models.EmailField(

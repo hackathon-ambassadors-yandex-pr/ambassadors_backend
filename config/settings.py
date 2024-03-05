@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
@@ -14,7 +13,6 @@ SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 DEBUG = True
 
 ALLOWED_HOSTS = os.environ["DJANGO_ALLOWED_HOSTS"].split(",")
-
 
 DJANGO_APPS = [
     "django.contrib.admin",

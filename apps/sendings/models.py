@@ -77,9 +77,10 @@ class Sending(models.Model):
         return str(self.pk)
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            self.reg_number = f"A {self.pk}"
         super().save(*args, **kwargs)
+        if not self.reg_number:
+            self.reg_number = f"A {self.pk}"
+            self.save()
 
 
 class SendingToMerch(models.Model):
@@ -118,10 +119,15 @@ class SendingToMerch(models.Model):
                 fields=("sending", "merch", "size"),
                 name="merch_with_size_is_unique_in_sending",
                 violation_error_message=(
-                    "Merch with this size must be unique in this sending."
+                    "Merch with size must be unique in this sending."
                 ),
             ),
         )
 
     def __str__(self):
         return f"Мерч {self.merch.pk} в Отправке {self.sending.pk}"
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.unit_price = self.merch.unit_price
+        super().save(*args, **kwargs)
