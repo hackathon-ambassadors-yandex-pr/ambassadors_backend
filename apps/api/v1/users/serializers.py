@@ -16,3 +16,4 @@ class UserSerializer(serializers.ModelSerializer):
             "registration_date",
             "avatar",
         ]
+        read_only_fields = ["registration_date"]
