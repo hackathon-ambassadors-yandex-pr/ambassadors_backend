@@ -25,6 +25,8 @@ class AmbassadorAdmin(admin.ModelAdmin):
     list_display = ("id", "first_name", "last_name", "registration_date")
     search_fields = ("first_name", "last_name")
     empty_value_display = "-пусто-"
+    readonly_fields = ("registration_date",)
+    filter_horizontal = ("targets",)
 
 
 @admin.register(Target)
@@ -48,5 +50,5 @@ class AddressAdmin(admin.ModelAdmin):
         "code",
         "is_current",
     )
-    search_fields = ("country", "city")
     readonly_fields = ("replaced_at",)
+    search_fields = ("country", "city")

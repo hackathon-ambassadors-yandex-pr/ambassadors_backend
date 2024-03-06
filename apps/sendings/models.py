@@ -23,6 +23,10 @@ class Merch(models.Model):
     unit_price = models.PositiveIntegerField(
         "unit price",
     )
+    quantity = models.PositiveSmallIntegerField(
+        "quantity",
+        validators=(MinValueValidator(limit_value=1),),
+    )
 
     class Meta:
         verbose_name = "merch"
@@ -41,7 +45,7 @@ class Sending(models.Model):
     )
     address = models.ForeignKey(
         Address,
-        verbose_name="адрес",
+        verbose_name="address",
         on_delete=models.PROTECT,
         related_name="sendings",
     )
@@ -125,7 +129,7 @@ class SendingToMerch(models.Model):
         )
 
     def __str__(self):
-        return f"Мерч {self.merch.pk} в Отправке {self.sending.pk}"
+        return f"Merch {self.merch.pk} in Sending {self.sending.pk}"
 
     def save(self, *args, **kwargs):
         if not self.pk:

@@ -29,32 +29,38 @@ class User(AbstractBaseUser, PermissionsMixin):
     """Модель пользователя."""
 
     first_name = models.CharField(
+        "first name",
         max_length=20,
-        verbose_name="first name",
     )
     middle_name = models.CharField(
+        "middle name",
         max_length=20,
-        verbose_name="middle name",
     )
     last_name = models.CharField(
+        "last name",
         max_length=20,
-        verbose_name="last name",
     )
     email = models.EmailField(
+        "email",
         unique=True,
-        verbose_name="email",
     )
     registration_date = models.DateField(
+        "registration date",
         auto_now_add=True,
-        verbose_name="registration date",
     )
     avatar = models.ImageField(
+        "avatar",
         upload_to="users/avatars",
         blank=True,
-        verbose_name="avatar",
     )
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(
+        "active status",
+        default=True,
+    )
+    is_staff = models.BooleanField(
+        "staff status",
+        default=False,
+    )
 
     objects = CustomUserManager()
 

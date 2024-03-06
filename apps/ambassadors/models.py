@@ -7,7 +7,7 @@ class Status(models.Model):
     """Модель статуса."""
 
     name = models.CharField(
-        verbose_name="name",
+        "name",
         max_length=20,
         unique=True,
     )
@@ -24,8 +24,8 @@ class Program(models.Model):
     """Модель программы."""
 
     name = models.CharField(
-        verbose_name="name",
-        max_length=30,
+        "name",
+        max_length=50,
         unique=True,
     )
 
@@ -40,9 +40,8 @@ class Program(models.Model):
 class Target(models.Model):
     """Модель цели."""
 
-    name = models.CharField(
-        verbose_name="name",
-        max_length=30,
+    name = models.TextField(
+        "name",
         unique=True,
     )
 
@@ -58,19 +57,19 @@ class Ambassador(models.Model):
     """Модель амбассадора."""
 
     first_name = models.CharField(
-        verbose_name="first name",
+        "first name",
         max_length=20,
     )
     middle_name = models.CharField(
-        verbose_name="middle name",
+        "middle name",
         max_length=20,
     )
     last_name = models.CharField(
-        verbose_name="last name",
+        "last name",
         max_length=20,
     )
     gender = models.CharField(
-        verbose_name="gender",
+        "gender",
         max_length=6,
         choices=Gender.choices,
     )
@@ -81,69 +80,66 @@ class Ambassador(models.Model):
         related_name="ambassadors",
     )
     registration_date = models.DateField(
-        verbose_name="registration date",
+        "registration date",
         auto_now_add=True,
     )
     user_comment = models.TextField(
-        verbose_name="comment",
-        null=True,
+        "comment",
         blank=True,
     )
     clothing_size = models.CharField(
-        verbose_name="clothing size",
+        "clothing size",
         max_length=5,
         choices=ClothingSize.choices,
     )
     shoe_size = models.CharField(
-        verbose_name="shoe size",
+        "shoe size",
         max_length=5,
     )
     telegram_link = models.URLField(
-        verbose_name="telegram link",
+        "telegram link",
         max_length=50,
         unique=True,
     )
     email = models.EmailField(
-        verbose_name="email",
+        "email",
         unique=True,
     )
     mobile_phone = models.CharField(
-        verbose_name="mobile phone",
+        "mobile phone",
         max_length=20,
         unique=True,
     )
     blog_link = models.URLField(
-        verbose_name="blog link",
+        "blog link",
         unique=True,
     )
     education = models.TextField(
-        verbose_name="education",
+        "education",
     )
     work_place = models.TextField(
         verbose_name="work place",
     )
     education_target = models.TextField(
-        verbose_name="education target",
+        "education target",
         choices=EducationTarget.choices,
     )
     education_target_own = models.TextField(
-        verbose_name="own target of education",
-        null=True,
+        "own target of education",
         blank=True,
     )
     onboarding_date = models.DateField(
-        verbose_name="onboarding date",
+        "onboarding date",
         null=True,
         blank=True,
     )
     guide_date = models.DateField(
-        verbose_name="date of completion of guide",
+        "date of completion of guide",
         null=True,
         blank=True,
     )
     comment_ambassador = models.TextField(
-        verbose_name="ambassador's comment",
-        null=True,
+        "ambassador's comment",
         blank=True,
     )
     program = models.ForeignKey(
@@ -154,6 +150,7 @@ class Ambassador(models.Model):
     )
     targets = models.ManyToManyField(
         Target,
+        verbose_name="targets",
         related_name="ambassadors",
     )
 
@@ -175,16 +172,16 @@ class Promocode(models.Model):
         related_name="promocodes",
     )
     value = models.CharField(
-        verbose_name="promocode value",
+        "promocode value",
         max_length=20,
     )
     replaced_at = models.DateField(
-        verbose_name="replacement date",
+        "replacement date",
         null=True,
         blank=True,
     )
     is_current = models.BooleanField(
-        verbose_name="current",
+        "current",
         default=True,
     )
 
@@ -206,28 +203,28 @@ class Address(models.Model):
         related_name="addresses",
     )
     country = models.CharField(
-        verbose_name="country",
+        "country",
         max_length=20,
     )
     city = models.CharField(
-        verbose_name="city",
+        "city",
         max_length=20,
     )
     address = models.CharField(
-        verbose_name="address",
-        max_length=50,
+        "address",
+        max_length=100,
     )
     code = models.CharField(
-        verbose_name="postal code",
+        "postal code",
         max_length=10,
     )
     replaced_at = models.DateField(
-        verbose_name="replacement date",
+        "replacement date",
         null=True,
         blank=True,
     )
     is_current = models.BooleanField(
-        verbose_name="current",
+        "current",
         default=True,
     )
 
