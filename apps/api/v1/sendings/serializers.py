@@ -127,10 +127,10 @@ class RetrieveSendingSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "reg_number",
-            "address",
-            "ambassador",
             "status",
             "user_comment",
+            "address",
+            "ambassador",
             "sending_merches",
         )
 

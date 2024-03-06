@@ -2,6 +2,9 @@
 
 from rest_framework.permissions import IsAuthenticated
 
+from apps.api.v1.drf_spectacular.custom_decorators import (
+    get_drf_spectacular_view_decorator,
+)
 from apps.api.v1.sendings.permissions import SendingStatusIsSentOrReadOnly
 from apps.api.v1.sendings.serializers import (
     CreateSendingSerializer,
@@ -13,6 +16,7 @@ from apps.api.v1.sendings.viewsets import CreateListRetrievePartialUpdateViewSet
 from apps.sendings.models import Sending
 
 
+@get_drf_spectacular_view_decorator("sendings")
 class SendingViewSet(CreateListRetrievePartialUpdateViewSet):
     """Обработчик запросов на эндпоинты Sendings."""
 

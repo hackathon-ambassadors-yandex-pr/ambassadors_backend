@@ -8,7 +8,7 @@ from apps.sendings.choice_classes import SendingStatus
 class SendingStatusIsSentOrReadOnly(permissions.BasePermission):
     """Проверка прав на доступ к объекту Sending."""
 
-    message = "It is not allowed to change Sending object whose status is not Sent."
+    message = "Не допускается изменение объекта Sending, статус которого не 'Sent'."
 
     def has_object_permission(self, request, view, obj):
         return (
