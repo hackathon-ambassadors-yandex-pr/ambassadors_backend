@@ -5,12 +5,15 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from .views import UserViewSet
 
 router = DefaultRouter()
+
 router.register(r"", UserViewSet)
 
 urlpatterns = [
     path("login/", TokenObtainPairView.as_view(), name="users_login"),
     path(
-        "me/", UserViewSet.as_view({"get": "retrieve", "put": "update"}), name="user-me"
+        "me/",
+        UserViewSet.as_view({"get": "retrieve", "patch": "partial_update"}),
+        name="users-me",
     ),
 ]
 
