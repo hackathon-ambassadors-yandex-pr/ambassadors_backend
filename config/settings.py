@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
@@ -14,7 +13,6 @@ SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 DEBUG = True
 
 ALLOWED_HOSTS = os.environ["DJANGO_ALLOWED_HOSTS"].split(",")
-
 
 DJANGO_APPS = [
     "django.contrib.admin",
@@ -55,7 +53,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "templates/api_doc")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -98,7 +96,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LANGUAGE_CODE = "ru-ru"
+LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
 
@@ -108,6 +106,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "api_doc/"),)
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -130,3 +129,21 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = "users.User"
+
+if DEBUG:
+    INSTALLED_APPS.extend(("drf_spectacular",))
+    REST_FRAMEWORK.update(
+        {"DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema"}
+    )
+    SPECTACULAR_SETTINGS = {
+        "TITLE": "CRM Yandex Ambassadors",
+        "DESCRIPTION": (
+            "CRM система работы с амбассадорами для Команды реферального маркетинга Яндекс"
+        ),
+        "VERSION": " ver 1.0 (команда №7)",
+        "EXTERNAL_DOCS": {
+            "description": "Подробнее о проекте на доске MIRO",
+            "url": "https://miro.com/app/board/uXjVNuiJsOE=/",
+        },
+        "SERVE_INCLUDE_SCHEMA": False,
+    }

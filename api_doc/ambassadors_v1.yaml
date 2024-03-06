@@ -1,0 +1,553 @@
+openapi: 3.0.3
+info:
+  title: CRM Yandex Ambassadors
+  version: ' ver 1.0 (команда №7)'
+  description: CRM система работы с амбассадорами для Команды реферального маркетинга
+    Яндекс
+paths:
+  /api/v1/sendings/:
+    get:
+      operationId: api_v1_sendings_list
+      description: Список отправок мерча амбассадорам (экран Мерч)
+      tags:
+      - Sendings
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListSending'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+    post:
+      operationId: api_v1_sendings_create
+      description: Новая отправка мерча амбассадору (карточка)
+      tags:
+      - Sendings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSending'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateSending'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateSending'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveSending'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+  /api/v1/sendings/{id}/:
+    get:
+      operationId: api_v1_sendings_retrieve
+      description: Данные отправки мерча амбассадору (карточка)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this отправка.
+        required: true
+      tags:
+      - Sendings
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveSending'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response404'
+          description: ''
+    patch:
+      operationId: api_v1_sendings_partial_update
+      description: Обновление данных отправки мерча амбассадору (карточка)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this отправка.
+        required: true
+      tags:
+      - Sendings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPartialUpdateSending'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPartialUpdateSending'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPartialUpdateSending'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveSending'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendingUpdateResponse403'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response404'
+          description: ''
+  /api/v1/tokens/refresh/:
+    post:
+      operationId: api_v1_tokens_refresh_create
+      description: Обновление JWT токенов
+      tags:
+      - Tokens
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+  /api/v1/users/login/:
+    post:
+      operationId: api_v1_users_login_create
+      description: Получение JWT токенов
+      tags:
+      - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+components:
+  schemas:
+    Ambassador:
+      type: object
+      description: Сериализатор объекта Ambassador для использования в RetrieveSendingSerializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          title: Имя
+          maxLength: 20
+        middle_name:
+          type: string
+          title: Отчество
+          maxLength: 20
+        last_name:
+          type: string
+          title: Фамилия
+          maxLength: 20
+        clothing_size:
+          allOf:
+          - $ref: '#/components/schemas/ClothingSizeEnum'
+          title: Размер одежды
+        shoe_size:
+          type: string
+          title: Размер обуви
+          maxLength: 5
+        telegram_link:
+          type: string
+          format: uri
+          title: Ссылка на телеграм
+          maxLength: 50
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        mobile_phone:
+          type: string
+          title: Номер телефона
+          maxLength: 20
+      required:
+      - clothing_size
+      - email
+      - first_name
+      - id
+      - last_name
+      - middle_name
+      - mobile_phone
+      - shoe_size
+      - telegram_link
+    AmbassadorBrief:
+      type: object
+      description: Сериализатор объекта Ambassador для использования в ListSendingSerializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          title: Имя
+          maxLength: 20
+        last_name:
+          type: string
+          title: Фамилия
+          maxLength: 20
+      required:
+      - first_name
+      - id
+      - last_name
+    ClothingSizeEnum:
+      enum:
+      - XS
+      - S
+      - M
+      - L
+      - XL
+      type: string
+      description: |-
+        * `XS` - Xs
+        * `S` - S
+        * `M` - M
+        * `L` - L
+        * `XL` - Xl
+    CreateSending:
+      type: object
+      description: Сериализатор для создания объекта Sending.
+      properties:
+        ambassador:
+          type: integer
+        user_comment:
+          type: string
+          title: Комментарий
+        sending_merches:
+          type: array
+          items:
+            $ref: '#/components/schemas/SendingToMerch'
+      required:
+      - ambassador
+      - sending_merches
+      - user_comment
+    ListSending:
+      type: object
+      description: Сериализатор списка объектов Sending.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Дата создания
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          title: Статус
+        ambassador:
+          $ref: '#/components/schemas/AmbassadorBrief'
+        sending_merches:
+          type: array
+          items:
+            $ref: '#/components/schemas/SendingMerch'
+      required:
+      - ambassador
+      - created_at
+      - id
+      - sending_merches
+    PatchedPartialUpdateSending:
+      type: object
+      description: Сериализатор для частичного обновления объекта Sending.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          title: Статус
+        user_comment:
+          type: string
+          title: Комментарий
+    Response400:
+      type: object
+      description: 'Ответ 400: Некорректное значение поля или отсутствует обязательное
+        поле.'
+      properties:
+        field_name:
+          type: array
+          items:
+            type: string
+            default: Некорректное значение поля или отсутствует обязательное поле.
+      required:
+      - field_name
+    Response401:
+      type: object
+      description: 'Ответ 401: Аутентификация не пройдена.'
+      properties:
+        detail:
+          type: string
+          default: Аутентификация не пройдена.
+    Response404:
+      type: object
+      description: 'Ответ 404: Объект не найден.'
+      properties:
+        detail:
+          type: string
+          default: Объект не найден.
+    RetrieveSending:
+      type: object
+      description: Сериализатор объекта Sending.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        reg_number:
+          type: string
+          readOnly: true
+          title: Регистрационный номер
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          title: Статус
+        user_comment:
+          type: string
+          title: Комментарий
+        address:
+          $ref: '#/components/schemas/SendingAddress'
+        ambassador:
+          $ref: '#/components/schemas/Ambassador'
+        sending_merches:
+          type: array
+          items:
+            $ref: '#/components/schemas/SendingToMerch'
+      required:
+      - address
+      - ambassador
+      - id
+      - reg_number
+      - sending_merches
+    SendingAddress:
+      type: object
+      description: Сериализатор объекта Address для использования в RetrieveSendingSerializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        code:
+          type: string
+          title: Почтовый индекс
+          maxLength: 10
+        country:
+          type: string
+          title: Страна
+          maxLength: 20
+        city:
+          type: string
+          title: Город
+          maxLength: 20
+        address:
+          type: string
+          title: Адрес
+          maxLength: 50
+      required:
+      - address
+      - city
+      - code
+      - country
+      - id
+    SendingMerch:
+      type: object
+      description: Сериализатор для получения значения поля sending_merches в ListSendingSerializer.
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      required:
+      - id
+      - name
+    SendingToMerch:
+      type: object
+      description: Сериализатор для работы с объектами SendingToMerch.
+      properties:
+        merch:
+          type: integer
+          title: Мерч
+        size:
+          type: string
+          title: Размер
+          maxLength: 10
+        quantity:
+          type: integer
+          maximum: 2147483647
+          minimum: 1
+          title: Количество
+        unit_price:
+          type: integer
+          readOnly: true
+          title: Цена за единицу
+          description: Цена за единицу на момент отправки
+      required:
+      - merch
+      - quantity
+      - size
+      - unit_price
+    SendingUpdateResponse403:
+      type: object
+      description: Ответ 403. Обновление объекта Sending не разрешено.
+      properties:
+        detail:
+          type: string
+          default: Не допускается изменение объекта Sending, статус которого не 'Sent'.
+    StatusEnum:
+      enum:
+      - Sent
+      - Error
+      type: string
+      description: |-
+        * `Sent` - Отправлено
+        * `Error` - Ошибка
+    TokenObtainPair:
+      type: object
+      properties:
+        email:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - email
+      - password
+      - refresh
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+      required:
+      - access
+      - refresh
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Подробнее о проекте на доске MIRO
+  url: https://miro.com/app/board/uXjVNuiJsOE=/

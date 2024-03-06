@@ -1,73 +1,114 @@
 from django.db import models
 
-from apps.content.choice_classes import ContentStatus
 from apps.ambassadors.models import Ambassador
+from apps.content.choice_classes import ContentStatus
 
 
 class SocialNetwork(models.Model):
     """Таблица SocialNetwork."""
 
     name = models.CharField(
+        "name",
         max_length=30,
-        verbose_name="название социальной сети",
         unique=True,
     )
+
     class Meta:
-        verbose_name = "социальная сеть"
-        verbose_name_plural = "социальные сети"
+        verbose_name = "social network"
+        verbose_name_plural = "social networks"
 
     def __str__(self):
-        return f'социальная сеть {self.name}'
-    
-    
+        return f"Social network {self.name}"
+
+
 class Content(models.Model):
     """Таблица Content."""
-    
+
     ambassador = models.ForeignKey(
         Ambassador,
         on_delete=models.PROTECT,
         null=True,
+        verbose_name="ambassador",
         related_name="contents",
     )
-    incorrect_full_name = models.CharField(
-        max_length=50,
-        blank = True,
+    incorrect_first_name = models.CharField(
+        "incorrect first name",
+        max_length=20,
+        blank=True,
+        help_text="Incorrect first name from form",
+    )
+    incorrect_last_name = models.CharField(
+        "incorrect last name",
+        max_length=20,
+        blank=True,
+        help_text="Incorrect last name from form",
     )
     incorrect_telegram_link = models.CharField(
+        "incorrect telegram link",
         max_length=50,
-        blank = True,
+        blank=True,
+        help_text="Incorrect telegram link from form",
     )
-    link = models.CharField(
-        max_length=200,
+    link = models.URLField(
+        "link",
+        help_text="Link to content",
     )
     guide_check = models.BooleanField(
+        "guide check",
         default=False,
-        help_text="Контент в рамках Гайда начинающего амбассадора",
+        help_text="Content on topic of Beginner's Ambassador Guide",
     )
     status = models.CharField(
+        "status",
         max_length=20,
-        verbose_name="статус",
         choices=ContentStatus.choices,
+        default=ContentStatus.NEW,
     )
     uploaded_at = models.DateTimeField(
+        "upload date",
         auto_now_add=True,
-        verbose_name="дата",
     )
     user_comment = models.TextField(
-        verbose_name="комментарий",
+        "comment",
+        blank=True,
     )
     social_network = models.ForeignKey(
         SocialNetwork,
         on_delete=models.PROTECT,
+        verbose_name="social_network",
         related_name="contents",
     )
 
     class Meta:
-        verbose_name = "контент"
-        verbose_name_plural = "контент"
+        verbose_name = "content"
+        verbose_name_plural = "content"
+        constraints = (
+            models.CheckConstraint(
+                check=(
+                    (
+                        models.Q(ambassador__isnull=True)
+                        & ~models.Q(incorrect_first_name="")
+                        & ~models.Q(incorrect_last_name="")
+                        & ~models.Q(incorrect_telegram_link="")
+                    )
+                    | (
+                        models.Q(ambassador__isnull=False)
+                        & models.Q(incorrect_first_name="")
+                        & models.Q(incorrect_last_name="")
+                        & models.Q(incorrect_telegram_link="")
+                    )
+                ),
+                name="fields_for_incorrect_data_and_ambassador_field",
+                violation_error_message=(
+                    "Fields for incorrect data and ambassador field "
+                    "cannot be empty or filled at same time."
+                ),
+            ),
+        )
 
     def __str__(self):
-        return f'Контент {self.first_and_last_name}'
+        return f"Content № {self.id}"
+
 
 class ContentFile(models.Model):
     """Таблица ContentFile."""
@@ -75,15 +116,18 @@ class ContentFile(models.Model):
     content = models.ForeignKey(
         Content,
         on_delete=models.PROTECT,
+        verbose_name="content",
         related_name="content_files",
     )
     file = models.FileField(
-        verbose_name="путь до файла",
+        "file",
+        upload_to="content_files/",
+        max_length=255,
     )
 
     class Meta:
-        verbose_name = "файл"
-        verbose_name_plural = "файлы"
+        verbose_name = "content file"
+        verbose_name_plural = "content files"
 
     def __str__(self):
-        return f'Файл {self.file}'
+        return f"Content file № {self.id}"

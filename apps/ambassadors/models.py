@@ -7,14 +7,14 @@ class Status(models.Model):
     """Модель статуса."""
 
     name = models.CharField(
-        verbose_name="название статуса",
+        "name",
         max_length=20,
         unique=True,
     )
 
     class Meta:
-        verbose_name = "статус"
-        verbose_name_plural = "статусы"
+        verbose_name = "status"
+        verbose_name_plural = "statuses"
 
     def __str__(self):
         return self.name
@@ -24,14 +24,14 @@ class Program(models.Model):
     """Модель программы."""
 
     name = models.CharField(
-        verbose_name="название программы",
-        max_length=30,
+        "name",
+        max_length=50,
         unique=True,
     )
 
     class Meta:
-        verbose_name = "программа"
-        verbose_name_plural = "программы"
+        verbose_name = "program"
+        verbose_name_plural = "programs"
 
     def __str__(self):
         return self.name
@@ -40,15 +40,14 @@ class Program(models.Model):
 class Target(models.Model):
     """Модель цели."""
 
-    name = models.CharField(
-        verbose_name="название цели",
-        max_length=30,
+    name = models.TextField(
+        "name",
         unique=True,
     )
 
     class Meta:
-        verbose_name = "цель"
-        verbose_name_plural = "цели"
+        verbose_name = "target"
+        verbose_name_plural = "targets"
 
     def __str__(self):
         return self.name
@@ -58,108 +57,106 @@ class Ambassador(models.Model):
     """Модель амбассадора."""
 
     first_name = models.CharField(
-        verbose_name="имя",
+        "first name",
         max_length=20,
     )
     middle_name = models.CharField(
-        verbose_name="отчество",
+        "middle name",
         max_length=20,
     )
     last_name = models.CharField(
-        verbose_name="фамилия",
+        "last name",
         max_length=20,
     )
     gender = models.CharField(
-        verbose_name="пол",
+        "gender",
         max_length=6,
         choices=Gender.choices,
     )
     status = models.ForeignKey(
         Status,
         on_delete=models.PROTECT,
-        verbose_name="статус",
+        verbose_name="status",
         related_name="ambassadors",
     )
     registration_date = models.DateField(
-        verbose_name="дата регистрации",
+        "registration date",
         auto_now_add=True,
     )
     user_comment = models.TextField(
-        verbose_name="комментарий пользователя",
-        null=True,
+        "comment",
         blank=True,
     )
     clothing_size = models.CharField(
-        verbose_name="размер одежды",
+        "clothing size",
         max_length=5,
         choices=ClothingSize.choices,
     )
     shoe_size = models.CharField(
-        verbose_name="размер обуви",
+        "shoe size",
         max_length=5,
     )
-    telegram_login = models.CharField(
-        verbose_name="имя пользователя телеграм",
-        max_length=20,
+    telegram_link = models.URLField(
+        "telegram link",
+        max_length=50,
         unique=True,
     )
     email = models.EmailField(
-        verbose_name="email",
+        "email",
         unique=True,
     )
     mobile_phone = models.CharField(
-        verbose_name="номер телефона",
+        "mobile phone",
         max_length=20,
         unique=True,
     )
     blog_link = models.URLField(
-        verbose_name="ссылка на блог",
+        "blog link",
         unique=True,
     )
     education = models.TextField(
-        verbose_name="образование",
+        "education",
     )
     work_place = models.TextField(
-        verbose_name="место работы",
+        verbose_name="work place",
     )
     education_target = models.TextField(
-        verbose_name="цель образования",
+        "education target",
         choices=EducationTarget.choices,
     )
     education_target_own = models.TextField(
-        verbose_name="своя цель образования",
-        null=True,
+        "own target of education",
         blank=True,
     )
     onboarding_date = models.DateField(
-        verbose_name="дата онбординга",
+        "onboarding date",
         null=True,
         blank=True,
     )
     guide_date = models.DateField(
-        verbose_name="дата прохождения гайда",
+        "date of completion of guide",
         null=True,
         blank=True,
     )
     comment_ambassador = models.TextField(
-        verbose_name="комментарий амбассадора",
-        null=True,
+        "ambassador's comment",
         blank=True,
     )
     program = models.ForeignKey(
         Program,
         on_delete=models.PROTECT,
-        verbose_name="программа",
+        verbose_name="program",
         related_name="ambassadors",
     )
     targets = models.ManyToManyField(
         Target,
+        verbose_name="targets",
         related_name="ambassadors",
     )
 
     class Meta:
-        verbose_name = "амбассадор"
-        verbose_name_plural = "амбассадоры"
+        verbose_name = "ambassador"
+        verbose_name_plural = "ambassadors"
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -171,26 +168,26 @@ class Promocode(models.Model):
     ambassador = models.ForeignKey(
         Ambassador,
         on_delete=models.CASCADE,
-        verbose_name="амбассадор",
+        verbose_name="ambassador",
         related_name="promocodes",
     )
     value = models.CharField(
-        verbose_name="значение промокода",
+        "promocode value",
         max_length=20,
     )
     replaced_at = models.DateField(
-        verbose_name="дата замены",
+        "replacement date",
         null=True,
         blank=True,
     )
     is_current = models.BooleanField(
-        verbose_name="текущий",
+        "current",
         default=True,
     )
 
     class Meta:
-        verbose_name = "промокод"
-        verbose_name_plural = "промокоды"
+        verbose_name = "promocode"
+        verbose_name_plural = "promocodes"
 
     def __str__(self):
         return self.value
@@ -202,38 +199,38 @@ class Address(models.Model):
     ambassador = models.ForeignKey(
         Ambassador,
         on_delete=models.CASCADE,
-        verbose_name="амбассадор",
+        verbose_name="ambassador",
         related_name="addresses",
     )
     country = models.CharField(
-        verbose_name="страна",
+        "country",
         max_length=20,
     )
     city = models.CharField(
-        verbose_name="город",
+        "city",
         max_length=20,
     )
     address = models.CharField(
-        verbose_name="адрес",
-        max_length=50,
+        "address",
+        max_length=100,
     )
     code = models.CharField(
-        verbose_name="почтовый индекс",
+        "postal code",
         max_length=10,
     )
     replaced_at = models.DateField(
-        verbose_name="дата изменения",
+        "replacement date",
         null=True,
         blank=True,
     )
     is_current = models.BooleanField(
-        verbose_name="текущий",
+        "current",
         default=True,
     )
 
     class Meta:
-        verbose_name = "адрес"
-        verbose_name_plural = "адреса"
+        verbose_name = "address"
+        verbose_name_plural = "addresses"
 
     def __str__(self):
         return f"{self.country}, {self.city}, {self.address}"

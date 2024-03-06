@@ -18,6 +18,7 @@ class SendingMerchInline(admin.TabularInline):
     """Виджет поля merches на странице создания объекта Sending."""
 
     model = Sending.merches.through
+    readonly_fields = ("unit_price",)
     min_num = 1
     extra = 5
 
