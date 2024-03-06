@@ -11,22 +11,22 @@ class Merch(models.Model):
     """Параметры таблицы Merch."""
 
     name = models.CharField(
-        "наименование",
+        "name",
         max_length=20,
         unique=True,
     )
     type = models.CharField(
-        "тип",
+        "type",
         max_length=20,
         choices=MerchType.choices,
     )
     unit_price = models.PositiveIntegerField(
-        "цена за единицу",
+        "unit price",
     )
 
     class Meta:
-        verbose_name = "мерч"
-        verbose_name_plural = "мерч"
+        verbose_name = "merch"
+        verbose_name_plural = "merch"
 
     def __str__(self):
         return self.name
@@ -36,7 +36,7 @@ class Sending(models.Model):
     """Параметры таблицы Sending."""
 
     reg_number = models.CharField(
-        "регистрационный номер",
+        "registration number",
         editable=False,
     )
     address = models.ForeignKey(
@@ -46,30 +46,30 @@ class Sending(models.Model):
         related_name="sendings",
     )
     created_at = models.DateTimeField(
-        "дата создания",
+        "date of creation",
         auto_now_add=True,
         db_index=True,
     )
     status = models.CharField(
-        "статус",
+        "status",
         max_length=20,
         choices=SendingStatus.choices,
         default=SendingStatus.SENT,
     )
     user_comment = models.TextField(
-        "комментарий",
+        "comment",
         blank=True,
     )
     merches = models.ManyToManyField(
         Merch,
         through="SendingToMerch",
-        verbose_name="мерч",
+        verbose_name="merch",
         related_name="sendings",
     )
 
     class Meta:
-        verbose_name = "отправка"
-        verbose_name_plural = "отправки"
+        verbose_name = "sending"
+        verbose_name_plural = "sending"
         indexes = (models.Index(fields=("created_at",), name="created_at_idx"),)
         ordering = ("-created_at",)
 
@@ -88,32 +88,32 @@ class SendingToMerch(models.Model):
 
     sending = models.ForeignKey(
         Sending,
-        verbose_name="отправка",
+        verbose_name="sending",
         on_delete=models.PROTECT,
         related_name="sending_to_merches",
     )
     merch = models.ForeignKey(
         Merch,
-        verbose_name="мерч",
+        verbose_name="merch",
         on_delete=models.PROTECT,
         related_name="sending_to_merches",
     )
     size = models.CharField(
-        "размер",
+        "size",
         max_length=10,
     )
     quantity = models.PositiveIntegerField(
-        "количество",
+        "quantity",
         validators=(MinValueValidator(limit_value=1),),
     )
     unit_price = models.PositiveIntegerField(
-        "цена за единицу",
-        help_text="Цена за единицу на момент отправки",
+        "unit price",
+        help_text="Unit price at time of dispatch",
     )
 
     class Meta:
-        verbose_name = "мерч в отправке"
-        verbose_name_plural = "мерч в отправке"
+        verbose_name = "sending merch"
+        verbose_name_plural = "sending merch"
         constraints = (
             models.UniqueConstraint(
                 fields=("sending", "merch", "size"),

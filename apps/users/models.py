@@ -30,26 +30,28 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     first_name = models.CharField(
         max_length=20,
-        verbose_name="имя",
+        verbose_name="first name",
     )
     middle_name = models.CharField(
         max_length=20,
-        verbose_name="отчество",
+        verbose_name="middle name",
     )
     last_name = models.CharField(
         max_length=20,
-        verbose_name="фамилия",
+        verbose_name="last name",
     )
     email = models.EmailField(
         unique=True,
-        verbose_name="почта",
+        verbose_name="email",
     )
     registration_date = models.DateField(
         auto_now_add=True,
-        verbose_name="дата регистрации",
+        verbose_name="registration date",
     )
     avatar = models.ImageField(
-        upload_to="users/avatars", blank=True, null=True, verbose_name="Фото"
+        upload_to="users/avatars",
+        blank=True,
+        verbose_name="avatar",
     )
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -62,8 +64,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     class Meta:
         ordering = ("last_name",)
-        verbose_name = "пользователь"
-        verbose_name_plural = "пользователи"
+        verbose_name = "user"
+        verbose_name_plural = "users"
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
