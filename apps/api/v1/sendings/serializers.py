@@ -34,8 +34,9 @@ class CreateSendingSerializer(serializers.ModelSerializer):
 
     @transaction.atomic
     def create(self, validated_data):
+        address = validated_data["ambassador"].addresses.filter(is_current=True).first()
         sending = Sending.objects.create(
-            address=validated_data["ambassador"].addresses.get(is_current=True),
+            address=address,
             user_comment=validated_data["user_comment"],
         )
         self.add_merches_to_sending(sending, validated_data["sending_merches"])
