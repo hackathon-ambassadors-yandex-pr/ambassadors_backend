@@ -9,9 +9,8 @@ class SocialNetwork(models.Model):
 
     name = models.CharField(
         max_length=30,
-        null=False,
-        blank=False,
         verbose_name="название социальной сети",
+        unique=True,
     )
     class Meta:
         verbose_name = "социальная сеть"
@@ -30,33 +29,28 @@ class Content(models.Model):
         null=True,
         related_name="contents",
     )
-    first_and_last_name = models.CharField(
+    incorrect_full_name = models.CharField(
         max_length=50,
         blank = True,
     )
-    telegram_link = models.CharField(
+    incorrect_telegram_link = models.CharField(
         max_length=50,
         blank = True,
     )
     link = models.CharField(
         max_length=200,
-        null=False,
-        blank=False,
     )
     guide_check = models.BooleanField(
-        default=False
+        default=False,
+        help_text="Контент в рамках Гайда начинающего амбассадора",
     )
     status = models.CharField(
         max_length=20,
-        null=False,
-        blank=False,
         verbose_name="статус",
         choices=ContentStatus.choices,
     )
     uploaded_at = models.DateTimeField(
         auto_now_add=True,
-        null=False,
-        blank=False,
         verbose_name="дата",
     )
     user_comment = models.TextField(
@@ -78,15 +72,12 @@ class Content(models.Model):
 class ContentFile(models.Model):
     """Таблица ContentFile."""
 
-    ambassador = models.ForeignKey(
+    content = models.ForeignKey(
         Content,
         on_delete=models.PROTECT,
-        null=True,
         related_name="content_files",
     )
     file = models.FileField(
-        null=False,
-        blank=False,
         verbose_name="путь до файла",
     )
 

@@ -10,8 +10,11 @@ from apps.content.models import (
 @admin.register(Content)
 class ContentAdmin(admin.ModelAdmin):
     list_display = (
-        "id", "link", "guide_check", "status",
-        "uploaded_at", "user_comment", "social_network_id",
+        "id", "ambassador",
+        "incorrect_full_name",
+        "incorrect_telegram_link","link",
+        "guide_check", "status", "uploaded_at",
+        "user_comment", "social_network",
     )
 
 
