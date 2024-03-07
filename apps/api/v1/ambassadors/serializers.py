@@ -238,7 +238,7 @@ class ListAmbassadorSerializer(serializers.ModelSerializer):
             "content_count",
         )
 
-    def get_content_count(self, obj):
+    def get_content_count(self, obj) -> int:
         return obj.contents.count()
 
     def to_representation(self, instance):
