@@ -10,7 +10,7 @@ from apps.api.v1.ambassadors.viewsets import CreateListRetrieveUpdateViewSet
 class AmbassadorViewSet(CreateListRetrieveUpdateViewSet):
     """Обработчик запросов эндпоинтов Ambassadors."""
 
-    queryset = Ambassador.objects.all()
+    queryset = Ambassador.objects.select_related("status", "program")
 
     def get_serializer_class(self):
         if self.action == "create":
