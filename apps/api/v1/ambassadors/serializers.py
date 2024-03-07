@@ -8,6 +8,8 @@ from apps.ambassadors.models import (
     Status,
     Target,
 )
+from apps.content.models import Content
+from apps.sendings.models import Sending
 
 
 class AddressSerializer(serializers.ModelSerializer):
@@ -50,6 +52,22 @@ class TargetSerializer(serializers.ModelSerializer):
         fields = ("id", "name")
 
 
+class ContentSerializer(serializers.ModelSerializer):
+    """Сериализатор для работы с объектом Content."""
+
+    class Meta:
+        model = Content
+        fields = ("id", "uploaded_at", "status", "link")
+
+
+class SendingSerializer(serializers.ModelSerializer):
+    """Сериализатор для работы с объектом Sending."""
+
+    class Meta:
+        model = Sending
+        fields = ("id", "created_at", "status")
+
+
 class RetrieveAmbassadorSerializer(serializers.ModelSerializer):
     """Сериализатор для возвращения объекта Ambassador."""
 
@@ -58,8 +76,8 @@ class RetrieveAmbassadorSerializer(serializers.ModelSerializer):
     targets = TargetSerializer(many=True, read_only=True)
     current_address = AddressSerializer(read_only=True)
     current_promocode = PromocodeSerializer(read_only=True)
-    # contents = ContentSerializer(many=True, read_only=True)
-    # sendings = SendingSerializer(many=True, read_only=True)
+    contents = ContentSerializer(many=True, read_only=True)
+    sendings = SendingSerializer(many=True, read_only=True)
 
     class Meta:
         model = Ambassador
@@ -89,6 +107,8 @@ class RetrieveAmbassadorSerializer(serializers.ModelSerializer):
             "targets",
             "current_address",
             "current_promocode",
+            "contents",
+            "sendings",
         )
 
     def to_representation(self, instance):
@@ -102,8 +122,11 @@ class RetrieveAmbassadorSerializer(serializers.ModelSerializer):
 
         if current_address:
             representation["current_address"] = AddressSerializer(current_address).data
+            sendings = Sending.objects.filter(address=current_address)
+            representation["sendings"] = SendingSerializer(sendings, many=True).data
         else:
             representation["current_address"] = None
+            representation["sendings"] = []
 
         if current_promocode:
             representation["current_promocode"] = PromocodeSerializer(
@@ -212,7 +235,7 @@ class ListAmbassadorSerializer(serializers.ModelSerializer):
 
     status = StatusSerializer(read_only=True)
     current_promocode = PromocodeSerializer(read_only=True)
-    # content_count = serializers.SerializerMethodField()
+    content_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Ambassador
@@ -224,11 +247,11 @@ class ListAmbassadorSerializer(serializers.ModelSerializer):
             "status",
             "telegram_link",
             "current_promocode",
-            # 'content_count',
+            "content_count",
         )
 
-    # def get_content_count(self, obj):
-    #     return obj.contents.count()
+    def get_content_count(self, obj):
+        return obj.contents.count()
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
