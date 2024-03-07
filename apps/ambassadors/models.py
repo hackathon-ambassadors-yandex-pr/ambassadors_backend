@@ -1,23 +1,11 @@
 from django.db import models
 
-from apps.ambassadors.choice_classes import ClothingSize, EducationTarget, Gender
-
-
-class Status(models.Model):
-    """Модель статуса."""
-
-    name = models.CharField(
-        "name",
-        max_length=20,
-        unique=True,
-    )
-
-    class Meta:
-        verbose_name = "status"
-        verbose_name_plural = "statuses"
-
-    def __str__(self):
-        return self.name
+from apps.ambassadors.choice_classes import (
+    AmbassadorStatus,
+    ClothingSize,
+    EducationTarget,
+    Gender,
+)
 
 
 class Program(models.Model):
@@ -73,11 +61,11 @@ class Ambassador(models.Model):
         max_length=6,
         choices=Gender.choices,
     )
-    status = models.ForeignKey(
-        Status,
-        on_delete=models.PROTECT,
-        verbose_name="status",
-        related_name="ambassadors",
+    status = models.CharField(
+        "status",
+        max_length=20,
+        choices=AmbassadorStatus.choices,
+        default=AmbassadorStatus.NEW,
     )
     registration_date = models.DateField(
         "registration date",

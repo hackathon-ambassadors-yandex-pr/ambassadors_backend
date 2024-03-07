@@ -5,14 +5,8 @@ from apps.ambassadors.models import (
     Ambassador,
     Program,
     Promocode,
-    Status,
     Target,
 )
-
-
-@admin.register(Status)
-class StatusAdmin(admin.ModelAdmin):
-    list_display = ("id", "name")
 
 
 @admin.register(Program)

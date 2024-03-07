@@ -26,3 +26,13 @@ class Gender(models.TextChoices):
 
     MALE = "М"
     FEMALE = "Ж"
+
+
+class AmbassadorStatus(models.TextChoices):
+    """Статус амбассадора."""
+
+    NEW = "Новый"
+    ACTIVE = "Активный"
+    TBC = "Уточняется", "TBC"
+    ON_PAUSE = "На паузе"
+    ARCHIVE = "Архив"

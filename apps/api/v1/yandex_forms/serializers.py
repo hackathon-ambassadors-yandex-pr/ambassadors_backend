@@ -5,7 +5,7 @@ from django.utils import timezone
 from rest_framework import serializers
 
 from apps.ambassadors.choice_classes import EducationTarget
-from apps.ambassadors.models import Address, Ambassador, Program, Status, Target
+from apps.ambassadors.models import Address, Ambassador, Program, Target
 from apps.content.choice_classes import ContentStatus
 from apps.content.models import Content, ContentFile
 
@@ -76,14 +76,10 @@ class AmbassadorFormSerializer(serializers.ModelSerializer):
     @transaction.atomic
     def create(self, validated_data):
         current_address = validated_data.pop("current_address")
-
-        validated_data["status"] = Status.objects.get(name="Новый")
         ambassador = super().create(validated_data)
-
         Address.objects.create(
             ambassador=ambassador, replaced_at=timezone.now(), **current_address
         )
-
         return ambassador
 
 
