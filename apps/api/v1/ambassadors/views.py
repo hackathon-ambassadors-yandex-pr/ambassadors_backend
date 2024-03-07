@@ -5,16 +5,18 @@ from apps.api.v1.ambassadors.serializers import (
     RetrieveAmbassadorSerializer,
 )
 from apps.api.v1.ambassadors.viewsets import CreateListRetrieveUpdateViewSet
+from apps.api.v1.drf_spectacular.custom_decorators import (
+    get_drf_spectacular_view_decorator,
+)
 
 
+@get_drf_spectacular_view_decorator("ambassadors")
 class AmbassadorViewSet(CreateListRetrieveUpdateViewSet):
     """Обработчик запросов эндпоинтов Ambassadors."""
 
     queryset = Ambassador.objects.select_related("program")
 
     def get_serializer_class(self):
-        if self.action == "create":
-            return CreateUpdateAmbassadorSerializer
         if self.action == "list":
             return ListAmbassadorSerializer
         if self.action == "retrieve":

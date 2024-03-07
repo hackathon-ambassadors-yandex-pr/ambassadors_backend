@@ -48,7 +48,7 @@ class Sending(models.Model):
         on_delete=models.PROTECT,
         related_name="sendings",
     )
-    created_at = models.DateTimeField(
+    created_at = models.DateField(
         "date of creation",
         auto_now_add=True,
         db_index=True,
