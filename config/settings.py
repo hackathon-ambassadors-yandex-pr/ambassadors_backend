@@ -146,4 +146,5 @@ if DEBUG:
             "url": "https://miro.com/app/board/uXjVNuiJsOE=/",
         },
         "SERVE_INCLUDE_SCHEMA": False,
+        "POSTPROCESSING_HOOKS": [],
     }
