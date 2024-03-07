@@ -157,6 +157,25 @@ class Ambassador(models.Model):
     class Meta:
         verbose_name = "ambassador"
         verbose_name_plural = "ambassadors"
+        constraints = (
+            models.CheckConstraint(
+                check=(
+                    (
+                        models.Q(education_target=EducationTarget.OTHER)
+                        & ~models.Q(education_target_own="")
+                    )
+                    | (
+                        ~models.Q(education_target=EducationTarget.OTHER)
+                        & models.Q(education_target_own="")
+                    )
+                ),
+                name="education_target_and_education_target_own",
+                violation_error_message=(
+                    f"if education_target = {EducationTarget.OTHER.name}, "
+                    f"then education_target_own field cannot be empty, and vice versa."
+                ),
+            ),
+        )
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

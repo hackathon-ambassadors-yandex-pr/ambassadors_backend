@@ -14,9 +14,9 @@ class ContentAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "ambassador",
-        "incorrect_first_name",
-        "incorrect_last_name",
-        "incorrect_telegram_link",
+        "first_name_from_form",
+        "last_name_from_form",
+        "telegram_link_from_form",
         "link",
         "guide_check",
         "status",
@@ -25,6 +25,7 @@ class ContentAdmin(admin.ModelAdmin):
         "social_network",
     )
     readonly_fields = ("uploaded_at",)
+    list_filter = ("status", "guide_check")
 
 
 @admin.register(ContentFile)
