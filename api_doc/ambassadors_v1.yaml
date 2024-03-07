@@ -75,7 +75,7 @@ paths:
         name: id
         schema:
           type: integer
-        description: A unique integer value identifying this отправка.
+        description: A unique integer value identifying this sending.
         required: true
       tags:
       - Sendings
@@ -108,7 +108,7 @@ paths:
         name: id
         schema:
           type: integer
-        description: A unique integer value identifying this отправка.
+        description: A unique integer value identifying this sending.
         required: true
       tags:
       - Sendings
@@ -193,6 +193,33 @@ paths:
               schema:
                 $ref: '#/components/schemas/Response401'
           description: ''
+  /api/v1/users/:
+    post:
+      operationId: api_v1_users_create
+      description: Вьюсет для работы с данными пользователя.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
   /api/v1/users/login/:
     post:
       operationId: api_v1_users_login_create
@@ -230,8 +257,130 @@ paths:
               schema:
                 $ref: '#/components/schemas/Response401'
           description: ''
+  /api/v1/users/me/:
+    get:
+      operationId: api_v1_users_me_retrieve
+      description: Вьюсет для работы с данными пользователя.
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: api_v1_users_me_partial_update
+      description: Вьюсет для работы с данными пользователя.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/v1/yandex_forms/ambassador_forms/:
+    post:
+      operationId: api_v1_yandex_forms_ambassador_forms_create
+      description: Обработчик запросов на эндпоинт ambassador_forms/.
+      tags:
+      - Yandex Forms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AmbassadorForm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AmbassadorForm'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AmbassadorForm'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+  /api/v1/yandex_forms/content_forms/:
+    post:
+      operationId: api_v1_yandex_forms_content_forms_create
+      description: Обработчик запросов на эндпоинт content_forms/.
+      tags:
+      - Yandex Forms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContentForm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ContentForm'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ContentForm'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
 components:
   schemas:
+    AddressForm:
+      type: object
+      description: Сериализатор для обработки данных адреса из формы амбассадора.
+      properties:
+        country:
+          type: string
+          maxLength: 20
+        city:
+          type: string
+          maxLength: 20
+        address:
+          type: string
+          maxLength: 100
+        code:
+          type: string
+          title: Postal code
+          maxLength: 10
+      required:
+      - address
+      - city
+      - code
+      - country
     Ambassador:
       type: object
       description: Сериализатор объекта Ambassador для использования в RetrieveSendingSerializer.
@@ -241,28 +390,34 @@ components:
           readOnly: true
         first_name:
           type: string
-          title: Имя
           maxLength: 20
         middle_name:
           type: string
-          title: Отчество
           maxLength: 20
         last_name:
           type: string
-          title: Фамилия
           maxLength: 20
         clothing_size:
-          allOf:
-          - $ref: '#/components/schemas/ClothingSizeEnum'
-          title: Размер одежды
+          enum:
+          - XS
+          - S
+          - M
+          - L
+          - XL
+          type: string
+          description: |-
+            * `XS` - XS
+            * `S` - S
+            * `M` - M
+            * `L` - L
+            * `XL` - XL
+          x-spec-enum-id: 1faf818ca57badf8
         shoe_size:
           type: string
-          title: Размер обуви
           maxLength: 5
         telegram_link:
           type: string
           format: uri
-          title: Ссылка на телеграм
           maxLength: 50
         email:
           type: string
@@ -270,7 +425,6 @@ components:
           maxLength: 254
         mobile_phone:
           type: string
-          title: Номер телефона
           maxLength: 20
       required:
       - clothing_size
@@ -291,30 +445,182 @@ components:
           readOnly: true
         first_name:
           type: string
-          title: Имя
           maxLength: 20
         last_name:
           type: string
-          title: Фамилия
           maxLength: 20
       required:
       - first_name
       - id
       - last_name
-    ClothingSizeEnum:
-      enum:
-      - XS
-      - S
-      - M
-      - L
-      - XL
-      type: string
-      description: |-
-        * `XS` - Xs
-        * `S` - S
-        * `M` - M
-        * `L` - L
-        * `XL` - Xl
+    AmbassadorForm:
+      type: object
+      description: Сериализатор для обработки данных формы амбассадора.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 20
+        middle_name:
+          type: string
+          maxLength: 20
+        last_name:
+          type: string
+          maxLength: 20
+        gender:
+          enum:
+          - М
+          - Ж
+          type: string
+          description: |-
+            * `М` - Male
+            * `Ж` - Female
+          x-spec-enum-id: bcf066e9f43b3937
+        program:
+          type: string
+        current_address:
+          allOf:
+          - $ref: '#/components/schemas/AddressForm'
+          writeOnly: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        mobile_phone:
+          type: string
+          maxLength: 20
+        telegram_link:
+          type: string
+          format: uri
+          maxLength: 50
+        education:
+          type: string
+        work_place:
+          type: string
+        education_target:
+          enum:
+          - Получение новой профессии, чтобы сменить работу
+          - Углубление имеющихся знаний, чтобы использовать их в текущей работе
+          - Свой вариант
+          type: string
+          description: |-
+            * `Получение новой профессии, чтобы сменить работу` - New Profession
+            * `Углубление имеющихся знаний, чтобы использовать их в текущей работе` - Deepen Knowledge
+            * `Свой вариант` - Other
+          x-spec-enum-id: a23c619e7a569381
+        education_target_own:
+          type: string
+          title: Own target of education
+        targets:
+          type: array
+          items:
+            type: string
+        blog_link:
+          type: string
+          format: uri
+          maxLength: 200
+        clothing_size:
+          enum:
+          - XS
+          - S
+          - M
+          - L
+          - XL
+          type: string
+          description: |-
+            * `XS` - XS
+            * `S` - S
+            * `M` - M
+            * `L` - L
+            * `XL` - XL
+          x-spec-enum-id: 1faf818ca57badf8
+        shoe_size:
+          type: string
+          maxLength: 5
+        comment_ambassador:
+          type: string
+          title: Ambassador's comment
+      required:
+      - blog_link
+      - clothing_size
+      - current_address
+      - education
+      - education_target
+      - email
+      - first_name
+      - gender
+      - id
+      - last_name
+      - middle_name
+      - mobile_phone
+      - program
+      - shoe_size
+      - targets
+      - telegram_link
+      - work_place
+    ContentForm:
+      type: object
+      description: Сериализатор для обработки данных формы контента.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name_from_form:
+          type: string
+          maxLength: 20
+        last_name_from_form:
+          type: string
+          maxLength: 20
+        telegram_link_from_form:
+          type: string
+          format: uri
+          maxLength: 50
+        link:
+          type: string
+          format: uri
+          description: Link to content
+          maxLength: 200
+        guide_check:
+          type: boolean
+          description: Content on topic of Beginner's Ambassador Guide
+        content_files:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileForm'
+        ambassador:
+          type: integer
+          readOnly: true
+          nullable: true
+        status:
+          enum:
+          - Новый
+          - Соответствует
+          - Не соответствует
+          - Уточняется
+          type: string
+          description: |-
+            * `Новый` - New
+            * `Соответствует` - Respond
+            * `Не соответствует` - Not Respond
+            * `Уточняется` - TBC
+          x-spec-enum-id: 69e6e94ffc64f2b6
+          readOnly: true
+        uploaded_at:
+          type: string
+          format: date
+          readOnly: true
+          title: Upload date
+      required:
+      - ambassador
+      - first_name_from_form
+      - id
+      - last_name_from_form
+      - link
+      - status
+      - telegram_link_from_form
+      - uploaded_at
     CreateSending:
       type: object
       description: Сериализатор для создания объекта Sending.
@@ -323,7 +629,7 @@ components:
           type: integer
         user_comment:
           type: string
-          title: Комментарий
+          title: Comment
         sending_merches:
           type: array
           items:
@@ -332,6 +638,19 @@ components:
       - ambassador
       - sending_merches
       - user_comment
+    FileForm:
+      type: object
+      description: Сериализатор для обработки файлов из формы контента.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        file:
+          type: string
+          format: uri
+      required:
+      - file
+      - id
     ListSending:
       type: object
       description: Сериализатор списка объектов Sending.
@@ -343,11 +662,16 @@ components:
           type: string
           format: date-time
           readOnly: true
-          title: Дата создания
+          title: Date of creation
         status:
-          allOf:
-          - $ref: '#/components/schemas/StatusEnum'
-          title: Статус
+          enum:
+          - Отправлено
+          - Ошибка
+          type: string
+          description: |-
+            * `Отправлено` - Sent
+            * `Ошибка` - Error
+          x-spec-enum-id: 7beb2be30e053ac2
         ambassador:
           $ref: '#/components/schemas/AmbassadorBrief'
         sending_merches:
@@ -367,12 +691,48 @@ components:
           type: integer
           readOnly: true
         status:
-          allOf:
-          - $ref: '#/components/schemas/StatusEnum'
-          title: Статус
+          enum:
+          - Отправлено
+          - Ошибка
+          type: string
+          description: |-
+            * `Отправлено` - Sent
+            * `Ошибка` - Error
+          x-spec-enum-id: 7beb2be30e053ac2
         user_comment:
           type: string
-          title: Комментарий
+          title: Comment
+    PatchedUser:
+      type: object
+      description: Сериализатор модели пользователя.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        last_name:
+          type: string
+          maxLength: 20
+        first_name:
+          type: string
+          maxLength: 20
+        middle_name:
+          type: string
+          maxLength: 20
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        registration_date:
+          type: string
+          format: date
+          readOnly: true
+        avatar:
+          type: string
+          format: uri
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 128
     Response400:
       type: object
       description: 'Ответ 400: Некорректное значение поля или отсутствует обязательное
@@ -409,14 +769,19 @@ components:
         reg_number:
           type: string
           readOnly: true
-          title: Регистрационный номер
+          title: Registration number
         status:
-          allOf:
-          - $ref: '#/components/schemas/StatusEnum'
-          title: Статус
+          enum:
+          - Отправлено
+          - Ошибка
+          type: string
+          description: |-
+            * `Отправлено` - Sent
+            * `Ошибка` - Error
+          x-spec-enum-id: 7beb2be30e053ac2
         user_comment:
           type: string
-          title: Комментарий
+          title: Comment
         address:
           $ref: '#/components/schemas/SendingAddress'
         ambassador:
@@ -440,20 +805,17 @@ components:
           readOnly: true
         code:
           type: string
-          title: Почтовый индекс
+          title: Postal code
           maxLength: 10
         country:
           type: string
-          title: Страна
           maxLength: 20
         city:
           type: string
-          title: Город
           maxLength: 20
         address:
           type: string
-          title: Адрес
-          maxLength: 50
+          maxLength: 100
       required:
       - address
       - city
@@ -477,21 +839,17 @@ components:
       properties:
         merch:
           type: integer
-          title: Мерч
         size:
           type: string
-          title: Размер
           maxLength: 10
         quantity:
           type: integer
           maximum: 2147483647
           minimum: 1
-          title: Количество
         unit_price:
           type: integer
           readOnly: true
-          title: Цена за единицу
-          description: Цена за единицу на момент отправки
+          description: Unit price at time of dispatch
       required:
       - merch
       - quantity
@@ -504,14 +862,6 @@ components:
         detail:
           type: string
           default: Не допускается изменение объекта Sending, статус которого не 'Sent'.
-    StatusEnum:
-      enum:
-      - Sent
-      - Error
-      type: string
-      description: |-
-        * `Sent` - Отправлено
-        * `Error` - Ошибка
     TokenObtainPair:
       type: object
       properties:
@@ -543,6 +893,45 @@ components:
       required:
       - access
       - refresh
+    User:
+      type: object
+      description: Сериализатор модели пользователя.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        last_name:
+          type: string
+          maxLength: 20
+        first_name:
+          type: string
+          maxLength: 20
+        middle_name:
+          type: string
+          maxLength: 20
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        registration_date:
+          type: string
+          format: date
+          readOnly: true
+        avatar:
+          type: string
+          format: uri
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 128
+      required:
+      - email
+      - first_name
+      - id
+      - last_name
+      - middle_name
+      - password
+      - registration_date
   securitySchemes:
     jwtAuth:
       type: http

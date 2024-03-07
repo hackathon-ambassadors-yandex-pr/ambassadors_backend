@@ -1,23 +1,11 @@
 from django.db import models
 
-from apps.ambassadors.choice_classes import ClothingSize, EducationTarget, Gender
-
-
-class Status(models.Model):
-    """Модель статуса."""
-
-    name = models.CharField(
-        "name",
-        max_length=20,
-        unique=True,
-    )
-
-    class Meta:
-        verbose_name = "status"
-        verbose_name_plural = "statuses"
-
-    def __str__(self):
-        return self.name
+from apps.ambassadors.choice_classes import (
+    AmbassadorStatus,
+    ClothingSize,
+    EducationTarget,
+    Gender,
+)
 
 
 class Program(models.Model):
@@ -73,11 +61,11 @@ class Ambassador(models.Model):
         max_length=6,
         choices=Gender.choices,
     )
-    status = models.ForeignKey(
-        Status,
-        on_delete=models.PROTECT,
-        verbose_name="status",
-        related_name="ambassadors",
+    status = models.CharField(
+        "status",
+        max_length=20,
+        choices=AmbassadorStatus.choices,
+        default=AmbassadorStatus.NEW,
     )
     registration_date = models.DateField(
         "registration date",
@@ -157,6 +145,25 @@ class Ambassador(models.Model):
     class Meta:
         verbose_name = "ambassador"
         verbose_name_plural = "ambassadors"
+        constraints = (
+            models.CheckConstraint(
+                check=(
+                    (
+                        models.Q(education_target=EducationTarget.OTHER)
+                        & ~models.Q(education_target_own="")
+                    )
+                    | (
+                        ~models.Q(education_target=EducationTarget.OTHER)
+                        & models.Q(education_target_own="")
+                    )
+                ),
+                name="education_target_and_education_target_own",
+                violation_error_message=(
+                    f"if education_target = {EducationTarget.OTHER.name}, "
+                    f"then education_target_own field cannot be empty, and vice versa."
+                ),
+            ),
+        )
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

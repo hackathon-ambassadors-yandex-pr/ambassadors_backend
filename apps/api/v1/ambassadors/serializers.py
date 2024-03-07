@@ -5,7 +5,6 @@ from apps.ambassadors.models import (
     Ambassador,
     Program,
     Promocode,
-    Status,
     Target,
 )
 from apps.content.models import Content
@@ -18,14 +17,6 @@ class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
         fields = ("id", "country", "city", "address", "code", "is_current")
-
-
-class StatusSerializer(serializers.ModelSerializer):
-    """Сериализатор для работы с объектом Status."""
-
-    class Meta:
-        model = Status
-        fields = ("id", "name")
 
 
 class ProgramSerializer(serializers.ModelSerializer):
@@ -71,7 +62,6 @@ class SendingSerializer(serializers.ModelSerializer):
 class RetrieveAmbassadorSerializer(serializers.ModelSerializer):
     """Сериализатор для возвращения объекта Ambassador."""
 
-    status = StatusSerializer(read_only=True)
     program = ProgramSerializer(read_only=True)
     targets = TargetSerializer(many=True, read_only=True)
     current_address = AddressSerializer(read_only=True)
@@ -141,7 +131,6 @@ class RetrieveAmbassadorSerializer(serializers.ModelSerializer):
 class CreateUpdateAmbassadorSerializer(serializers.ModelSerializer):
     """Сериализатор для создания или изменения объекта Ambassador."""
 
-    status = serializers.PrimaryKeyRelatedField(queryset=Status.objects.all())
     program = serializers.PrimaryKeyRelatedField(queryset=Program.objects.all())
     targets = serializers.PrimaryKeyRelatedField(
         queryset=Target.objects.all(), many=True
@@ -233,7 +222,6 @@ class CreateUpdateAmbassadorSerializer(serializers.ModelSerializer):
 class ListAmbassadorSerializer(serializers.ModelSerializer):
     """Сериализатор для возвращения списка объектов Ambassadors."""
 
-    status = StatusSerializer(read_only=True)
     current_promocode = PromocodeSerializer(read_only=True)
     content_count = serializers.SerializerMethodField()
 

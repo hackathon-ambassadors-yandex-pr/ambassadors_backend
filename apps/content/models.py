@@ -31,23 +31,23 @@ class Content(models.Model):
         verbose_name="ambassador",
         related_name="contents",
     )
-    incorrect_first_name = models.CharField(
-        "incorrect first name",
+    first_name_from_form = models.CharField(
+        "first name from form",
         max_length=20,
         blank=True,
-        help_text="Incorrect first name from form",
+        default="",
     )
-    incorrect_last_name = models.CharField(
-        "incorrect last name",
+    last_name_from_form = models.CharField(
+        "last name from form",
         max_length=20,
         blank=True,
-        help_text="Incorrect last name from form",
+        default="",
     )
-    incorrect_telegram_link = models.CharField(
-        "incorrect telegram link",
+    telegram_link_from_form = models.URLField(
+        "telegram link from form",
         max_length=50,
         blank=True,
-        help_text="Incorrect telegram link from form",
+        default="",
     )
     link = models.URLField(
         "link",
@@ -64,7 +64,7 @@ class Content(models.Model):
         choices=ContentStatus.choices,
         default=ContentStatus.NEW,
     )
-    uploaded_at = models.DateTimeField(
+    uploaded_at = models.DateField(
         "upload date",
         auto_now_add=True,
     )
@@ -77,6 +77,7 @@ class Content(models.Model):
         on_delete=models.PROTECT,
         verbose_name="social_network",
         related_name="contents",
+        null=True,
     )
 
     class Meta:
@@ -87,21 +88,21 @@ class Content(models.Model):
                 check=(
                     (
                         models.Q(ambassador__isnull=True)
-                        & ~models.Q(incorrect_first_name="")
-                        & ~models.Q(incorrect_last_name="")
-                        & ~models.Q(incorrect_telegram_link="")
+                        & ~models.Q(first_name_from_form="")
+                        & ~models.Q(last_name_from_form="")
+                        & ~models.Q(telegram_link_from_form="")
                     )
                     | (
                         models.Q(ambassador__isnull=False)
-                        & models.Q(incorrect_first_name="")
-                        & models.Q(incorrect_last_name="")
-                        & models.Q(incorrect_telegram_link="")
+                        & models.Q(first_name_from_form="")
+                        & models.Q(last_name_from_form="")
+                        & models.Q(telegram_link_from_form="")
                     )
                 ),
-                name="fields_for_incorrect_data_and_ambassador_field",
+                name="fields_named_from_form_and_ambassador_field",
                 violation_error_message=(
-                    "Fields for incorrect data and ambassador field "
-                    "cannot be empty or filled at same time."
+                    "Fields named '..._from_form' and 'ambassador' "
+                    "cannot be empty or filled in at the same time."
                 ),
             ),
         )
