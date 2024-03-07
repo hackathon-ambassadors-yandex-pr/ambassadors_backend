@@ -25,7 +25,6 @@ class Merch(models.Model):
     )
     quantity = models.PositiveSmallIntegerField(
         "quantity",
-        validators=(MinValueValidator(limit_value=1),),
     )
 
     class Meta:
