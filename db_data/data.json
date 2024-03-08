@@ -1,0 +1,277 @@
+[
+    {
+        "model":"users.user",
+        "pk":1,
+        "fields":{
+            "password":"pbkdf2_sha256$600000$ouLOaiWadGvLvDTI9EwVc0$aTf24LjbjZp0qNYrWxuM84gbkxVDrGJWzHCJVr/M2Nc=",
+            "last_login":"2024-03-08T17:47:55.328Z",
+            "is_superuser":true,
+            "first_name":"",
+            "middle_name":"",
+            "last_name":"",
+            "email":"su@su.su",
+            "registration_date":"2024-03-08",
+            "avatar":"",
+            "is_active":true,
+            "is_staff":true,
+            "groups":[
+                
+            ],
+            "user_permissions":[
+                
+            ]
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":1,
+        "fields":{
+            "name":"Аналитик данных"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":2,
+        "fields":{
+            "name":"Специалист по Data Science"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":3,
+        "fields":{
+            "name":"Python-разработчик"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":4,
+        "fields":{
+            "name":"Веб-разработчик"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":5,
+        "fields":{
+            "name":"Инженер по тестированию (QA)"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":6,
+        "fields":{
+            "name":"UX/UI-дизайнер"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":7,
+        "fields":{
+            "name":"Маркетинг"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":8,
+        "fields":{
+            "name":"Графический дизайнер"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":9,
+        "fields":{
+            "name":"Middle Python"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":10,
+        "fields":{
+            "name":"C++"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":11,
+        "fields":{
+            "name":"Инженер данных"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":12,
+        "fields":{
+            "name":"IT-рекрутер"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":13,
+        "fields":{
+            "name":"Управление"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":14,
+        "fields":{
+            "name":"Английский"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":15,
+        "fields":{
+            "name":"Критическое мышление"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":16,
+        "fields":{
+            "name":"Рабочая коммуникация"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":17,
+        "fields":{
+            "name":"Алгоритмы для разработчиков"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":18,
+        "fields":{
+            "name":"Продуктовый дизайн"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":19,
+        "fields":{
+            "name":"SQL для работы с данными и аналитики"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":20,
+        "fields":{
+            "name":"Java-разработчик"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":21,
+        "fields":{
+            "name":"Коммерческий иллюстратор"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":22,
+        "fields":{
+            "name":"Фулстек разработчик"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":23,
+        "fields":{
+            "name":"Продвинутый GO-разработчик"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":24,
+        "fields":{
+            "name":"DevOps для эксплуатации и разработки"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":25,
+        "fields":{
+            "name":"IOS-разработчик"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":26,
+        "fields":{
+            "name":"Бизнес-аналитик"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":27,
+        "fields":{
+            "name":"Продакт-менеджер для специалистов с опытом"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":28,
+        "fields":{
+            "name":"Android-разработчик"
+        }
+    },
+    {
+        "model":"ambassadors.program",
+        "pk":29,
+        "fields":{
+            "name":"Менеджер проектов"
+        }
+    },
+    {
+        "model":"ambassadors.target",
+        "pk":1,
+        "fields":{
+            "name":"Вести блог"
+        }
+    },
+    {
+        "model":"ambassadors.target",
+        "pk":2,
+        "fields":{
+            "name":"Развивать локальное профессиональное сообщество в своем городе"
+        }
+    },
+    {
+        "model":"ambassadors.target",
+        "pk":3,
+        "fields":{
+            "name":"Писать статьи"
+        }
+    },
+    {
+        "model":"ambassadors.target",
+        "pk":4,
+        "fields":{
+            "name":"Снимать видео или сниматься в них, если продакшн будет на нашей стороне"
+        }
+    },
+    {
+        "model":"ambassadors.target",
+        "pk":5,
+        "fields":{
+            "name":"Знакомить коллег на работе с продуктом Практикума через различные форматы"
+        }
+    },
+    {
+        "model":"ambassadors.target",
+        "pk":6,
+        "fields":{
+            "name":"Давать консультации и рассказывать всем про Практикум"
+        }
+    },
+    {
+        "model":"ambassadors.target",
+        "pk":7,
+        "fields":{
+            "name":"Выступать на мероприятиях"
+        }
+    }
+]
