@@ -223,7 +223,7 @@ class ListAmbassadorSerializer(serializers.ModelSerializer):
     """Сериализатор для возвращения списка объектов Ambassadors."""
 
     current_promocode = PromocodeSerializer(read_only=True)
-    content_count = serializers.SerializerMethodField()
+    content_count = serializers.IntegerField()
 
     class Meta:
         model = Ambassador
@@ -237,9 +237,6 @@ class ListAmbassadorSerializer(serializers.ModelSerializer):
             "current_promocode",
             "content_count",
         )
-
-    def get_content_count(self, obj):
-        return obj.contents.count()
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
