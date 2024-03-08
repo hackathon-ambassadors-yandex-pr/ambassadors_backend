@@ -1,6 +1,6 @@
 #!/bin/sh
 
-while ! nc -z users_postgres 5432;
+while ! nc -z ambassadors_postgres 5432;
     do sleep .5;
     echo "wait database";
 done;

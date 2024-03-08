@@ -11,7 +11,6 @@ RUN python manage.py collectstatic --no-input
 FROM base as prod
 COPY --chmod=+x ./infra/scripts/run_app.prod.sh .
 
-
 FROM base as dev
 COPY --chmod=+x ./infra/scripts/run_app.dev.sh .
 COPY ./db_data/test_media/ ./media/
