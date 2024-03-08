@@ -23,7 +23,7 @@ class UserAdmin(DjangoUserAdmin):
         (None, {"fields": ("password",)}),
         (
             _("Personal info"),
-            {"fields": ("last_name", "first_name", "middle_name", "email")},
+            {"fields": ("last_name", "first_name", "middle_name", "email", "avatar")},
         ),
         (
             _("Permissions"),
