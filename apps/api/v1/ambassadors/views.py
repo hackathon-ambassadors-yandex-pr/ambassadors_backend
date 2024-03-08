@@ -14,7 +14,7 @@ from apps.api.v1.drf_spectacular.custom_decorators import (
 class AmbassadorViewSet(CreateListRetrieveUpdateViewSet):
     """Обработчик запросов эндпоинтов Ambassadors."""
 
-    queryset = Ambassador.objects.select_related("program")
+    queryset = Ambassador.objects.all().select_related("program")
 
     def get_serializer_class(self):
         if self.action == "list":
