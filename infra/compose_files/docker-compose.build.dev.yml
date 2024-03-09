@@ -17,6 +17,7 @@ services:
 
   ambassadors_back:
     container_name: ambassadors_back
+    image: yandexambassadors7/backend:v1.0.0
     build:
       context: ../..
       target: dev

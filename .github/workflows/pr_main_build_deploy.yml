@@ -47,7 +47,7 @@ jobs:
         context: ./
         target: dev
         push: true
-        tags: ${{ secrets.$DOCKER_REPO_BACK }}:1.0.0
+        tags: yandexambassadors7/backend:v1.0.0
 
   deploy:
     runs-on: ubuntu-22.04
@@ -62,5 +62,5 @@ jobs:
           script: |
             cd ambassadors/compose_files
             docker compose -f docker-compose.prod.yml down -v
-            docker rmi ${{ secrets.$DOCKER_REPO_BACK }}:1.0.0
+            docker rmi yandexambassadors7/backend:v1.0.0
             docker compose -f docker-compose.prod.yml up -d
