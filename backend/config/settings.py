@@ -9,9 +9,11 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
+SECRET_KEY = os.getenv(
+    "DJANGO_SECRET_KEY", "u3vyq4eb5q$(67_58j&@tf6d9pceupv!+kb((#j+wdw3n3x5u4"
+)
 
-DEBUG = os.environ["DEBUG"]
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost 127.0.0.1").split(" ")
 

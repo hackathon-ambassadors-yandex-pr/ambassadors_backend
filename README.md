@@ -73,8 +73,12 @@ PostgreSQL 16
     python manage.py createsuperuser
     ```
 
+9. Импортировать необходимые для работы данные в БД:
+    ```bash
+    python manage.py loaddata ../db_data/data.json
+    ```
 
-9. Запустить проект:
+10. Запустить проект:
     ```bash
     python manage.py runserver 8008
     ```

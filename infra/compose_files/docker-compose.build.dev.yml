@@ -16,21 +16,22 @@ services:
       - ambassadors_postgres_data:/var/lib/postgresql/data/
 
   ambassadors_back:
-    container_name: ambassadors_back_build
+    container_name: ambassadors_back
     build:
       context: ../..
       target: dev
     env_file:
       - ../../.env
-    expose:
-      - "8008"
     restart: on-failure
     volumes:
       - ambassadors_static:/app/static/
       - ambassadors_media:/app/media/
     depends_on:
       - ambassadors_postgres
-    command: ["./wait_database.sh", "./run_app.dev.sh"]
+    command: [
+      "./wait-for-it.sh", "ambassadors_postgres:5432", "--strict", "--timeout=300", "--",
+      "./run_app.dev.sh"
+    ]
 
   nginx:
     container_name: nginx

@@ -78,6 +78,7 @@ class Content(models.Model):
         verbose_name="social_network",
         related_name="contents",
         null=True,
+        blank=True,
     )
 
     class Meta:

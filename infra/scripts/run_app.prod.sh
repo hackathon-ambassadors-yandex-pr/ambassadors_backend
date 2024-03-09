@@ -1,4 +1,4 @@
 python manage.py migrate --no-input;
 python manage.py createsuperuser --no-input;
 python manage.py loaddata data.json;
-gunicorn octopus.wsgi:application --bind 0:8008;
+gunicorn config.wsgi:application --bind 0:8008;
