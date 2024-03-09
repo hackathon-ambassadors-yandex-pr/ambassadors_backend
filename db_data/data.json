@@ -250,5 +250,68 @@
         "fields":{
             "name":"Выступать на мероприятиях"
         }
+    },
+        {
+        "model":"content.socialnetwork",
+        "pk":1,
+        "fields":{
+            "name":"Отзыв"
+        }
+    },
+    {
+        "model":"content.socialnetwork",
+        "pk":2,
+        "fields":{
+            "name":"Хабр"
+        }
+    },
+    {
+        "model":"content.socialnetwork",
+        "pk":3,
+        "fields":{
+            "name":"VC"
+        }
+    },
+    {
+        "model":"content.socialnetwork",
+        "pk":4,
+        "fields":{
+            "name":"Ютуб"
+        }
+    },
+    {
+        "model":"content.socialnetwork",
+        "pk":5,
+        "fields":{
+            "name":"Телеграм"
+        }
+    },
+    {
+        "model":"content.socialnetwork",
+        "pk":6,
+        "fields":{
+            "name":"Фото в мерче"
+        }
+    },
+    {
+        "model":"content.socialnetwork",
+        "pk":7,
+        "fields":{
+            "name":"Instagram"
+        }
+    },
+    {
+        "model":"content.socialnetwork",
+        "pk":8,
+        "fields":{
+            "name":"Linkedin"
+        }
+    },
+    {
+        "model":"content.socialnetwork",
+        "pk":9,
+        "fields":{
+            "name":"Участие в проекте"
+        }
     }
 ]
