@@ -251,7 +251,7 @@
             "name":"Выступать на мероприятиях"
         }
     },
-        {
+    {
         "model":"content.socialnetwork",
         "pk":1,
         "fields":{
