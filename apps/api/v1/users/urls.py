@@ -4,6 +4,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from apps.api.v1.drf_spectacular.custom_decorators import (
     get_drf_spectacular_view_decorator,
 )
+
 from .views import UserViewSet
 
 urlpatterns = [
