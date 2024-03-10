@@ -1,16 +1,6 @@
 from django.db import models
 
 
-class ClothingSize(models.TextChoices):
-    """Размеры одежды."""
-
-    XS = "XS", "XS"
-    S = "S", "S"
-    M = "M", "M"
-    L = "L", "L"
-    XL = "XL", "XL"
-
-
 class EducationTarget(models.TextChoices):
     """Цели обучения."""
 
