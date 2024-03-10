@@ -2,17 +2,20 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+from corsheaders.defaults import default_headers
 from dotenv import load_dotenv
 
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
+SECRET_KEY = os.getenv(
+    "DJANGO_SECRET_KEY", "u3vyq4eb5q$(67_58j&@tf6d9pceupv!+kb((#j+wdw3n3x5u4"
+)
 
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = os.environ["DJANGO_ALLOWED_HOSTS"].split(",")
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost 127.0.0.1").split(" ")
 
 DJANGO_APPS = [
     "django.contrib.admin",
@@ -122,16 +125,32 @@ REST_FRAMEWORK = {
     ],
 }
 
+ONE_WEEK_IN_SECONDS = 604800
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(
+        seconds=int(os.getenv("ACCESS_TOKEN_LIFETIME", ONE_WEEK_IN_SECONDS))
+    ),
+    "REFRESH_TOKEN_LIFETIME": timedelta(
+        seconds=int(os.getenv("REFRESH_TOKEN_LIFETIME", ONE_WEEK_IN_SECONDS))
+    ),
     "ROTATE_REFRESH_TOKENS": True,
 }
 
 AUTH_USER_MODEL = "users.User"
 
+CSRF_TRUSTED_ORIGINS = os.getenv(
+    "CSRF_TRUSTED_ORIGINS", "http://localhost http://127.0.0.1"
+).split(" ")
+
 if DEBUG:
-    INSTALLED_APPS.extend(("drf_spectacular",))
+    INSTALLED_APPS.extend(("drf_spectacular", "corsheaders"))
+
+    MIDDLEWARE.extend(("corsheaders.middleware.CorsMiddleware",))
+    CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000"]
+    CORS_URLS_REGEX = r"^/api/.*$"
+    CORS_ALLOW_HEADERS = [*default_headers, "x-xsrf-token"]
+    CORS_ALLOW_CREDENTIALS = True
+
     REST_FRAMEWORK.update(
         {"DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema"}
     )
