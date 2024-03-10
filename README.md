@@ -219,58 +219,58 @@ SSH_KEY=<--BEGIN OPENSSH PRIVATE KEY--...--END OPENSSH PRIVATE KEY--> # cat ~/.s
 
 ## Команда проекта
 
-Product manager – Багинский Константин (@kvbaginskii)
+Product manager – Багинский Константин ([@kvbaginskii](https://t.me/kvbaginskii))
 
-Project manager – Тарабуткина Юлиана (@Juliana_jull)
+Project manager – Тарабуткина Юлиана ([@Juliana_jull](https://t.me/Juliana_jull))
 
 <details>
 <summary>системные аналитики</summary>
 
-Сканави Павел (@Reds_on_tour) - Lead
+Сканави Павел ([@Reds_on_tour](https://t.me/Reds_on_tour)) - Lead
 
-Краснов Дмитрий (@DmAKrasnov)
+Краснов Дмитрий ([@DmAKrasnov](https://t.me/DmAKrasnov))
+
+Павлюченко Елена ([@elprianik](https://t.me/elprianik))
 </details>
 
 <details>
 <summary>бизнес-аналитики</summary>
 
-Павлова Мария (@MariaPavlova111) - Lead
+Павлова Мария ([@MariaPavlova111](https://t.me/MariaPavlova111)) - Lead
 
-Бублик Михаил (@Boymit)
-
-Павлюченко Елена (@elprianik)
+Бублик Михаил ([@Boymit](https://t.me/Boymit))
 </details>
 
 <details>
 <summary>дизайнеры</summary>
 
-Фортунатова Екатерина (@by42naa) - Lead
+Фортунатова Екатерина ([@by42naa](https://t.me/by42naa)) - Lead
 
-Торженова Юлия (@Yuliya_Torzhenova)
+Торженова Юлия ([@Yuliya_Torzhenova](https://t.me/Yuliya_Torzhenova)]
 
-Агафонова Светлана (@agafonova_ss)
+Агафонова Светлана ([@agafonova_ss](https://t.me/agafonova_ss))
 </details>
 
 <details>
 <summary>backend</summary>
 
-Лашков Павел (@hutjinator) - Lead
+Лашков Павел ([@hutjinator](https://t.me/hutjinator)) - Lead
 
-Жуков Борис (@sabjbrus)
+Жуков Борис ([@sabjbrus](https://t.me/sabjbrus))
 
-Лысогор Олег (@tg_user_Oleg)
+Лысогор Олег ([@tg_user_Oleg](https://t.me/tg_user_Oleg))
 
-Ефимова Екатерина (@KatKlejton)
+Ефимова Екатерина ([@KatKlejton](https://t.me/KatKlejton))
 </details>
 
 <details>
 <summary>frontend</summary>
 
-Журавлев Андрей (@Andre2296) - Lead
+Журавлев Андрей ([@Andre2296](https://t.me/Andre2296)) - Lead
 
-Типсин Дмитрий @Chia_Rio_Ru)
+Типсин Дмитрий ([@Chia_Rio_Ru](https://t.me/Chia_Rio_Ru))
 
-Манаев Денис (@manaewd)
+Манаев Денис ([@manaewd](https://t.me/manaewd))
 </details>
 
 [⬆️В начало](#оглавление)
