@@ -1,5 +1,3 @@
-from django.db.models import Count
-
 from apps.ambassadors.models import Ambassador
 from apps.api.v1.ambassadors.serializers import (
     CreateUpdateAmbassadorSerializer,
@@ -10,6 +8,7 @@ from apps.api.v1.ambassadors.viewsets import CreateListRetrieveUpdateViewSet
 from apps.api.v1.drf_spectacular.custom_decorators import (
     get_drf_spectacular_view_decorator,
 )
+from django.db.models import Count
 
 
 @get_drf_spectacular_view_decorator("ambassadors")

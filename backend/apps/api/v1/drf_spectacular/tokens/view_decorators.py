@@ -1,11 +1,10 @@
-from drf_spectacular.utils import extend_schema, extend_schema_view
-from rest_framework import status
-from rest_framework_simplejwt.serializers import TokenRefreshSerializer
-
 from apps.api.v1.drf_spectacular.core.serializers import (
     Response400Serializer,
     Response401Serializer,
 )
+from drf_spectacular.utils import extend_schema, extend_schema_view
+from rest_framework import status
+from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 
 TOKENS_VIEW_DECORATORS = {
     "TokenRefreshView": extend_schema_view(

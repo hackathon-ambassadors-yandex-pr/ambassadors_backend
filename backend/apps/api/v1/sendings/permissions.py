@@ -1,8 +1,7 @@
 """Классы для проверки прав на запросы на эндпоинты группы Sendings."""
 
-from rest_framework import permissions
-
 from apps.sendings.choice_classes import SendingStatus
+from rest_framework import permissions
 
 
 class SendingStatusIsSentOrReadOnly(permissions.BasePermission):
