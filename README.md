@@ -5,6 +5,7 @@
 - [Технологии](#технологии)
 - [Запуск](#запуск)
 - [CI/CD](#cicd)
+- [Команда проекта](#команда-проекта)
 
 ## Описание
 
@@ -215,3 +216,64 @@ SSH_KEY=<--BEGIN OPENSSH PRIVATE KEY--...--END OPENSSH PRIVATE KEY--> # cat ~/.s
 
 [⬆️В начало](#оглавление)
 </details>
+
+## Команда проекта
+
+Product manager – Багинский Константин (@kvbaginskii)
+
+Project manager – Тарабуткина Юлиана (@Juliana_jull)
+
+<details>
+<summary>системные аналитики</summary>
+
+Сканави Павел (@Reds_on_tour) - Lead
+
+Краснов Дмитрий (@DmAKrasnov)
+</details>
+
+<details>
+<summary>бизнес-аналитики</summary>
+
+Павлова Мария (@MariaPavlova111) - Lead
+
+Бублик Михаил (@Boymit)
+
+Павлюченко Елена (@elprianik)
+</details>
+
+<details>
+<summary>дизайнеры</summary>
+
+Фортунатова Екатерина (@by42naa) - Lead
+
+Торженова Юлия (@Yuliya_Torzhenova)
+
+Агафонова Светлана (@agafonova_ss)
+</details>
+
+<details>
+<summary>backend</summary>
+
+Лашков Павел (@hutjinator) - Lead
+
+Жуков Борис (@sabjbrus)
+
+Лысогор Олег (@tg_user_Oleg)
+
+Ефимова Екатерина (@KatKlejton)
+</details>
+
+<details>
+<summary>frontend</summary>
+
+Журавлев Андрей (@Andre2296) - Lead
+
+Типсин Дмитрий @Chia_Rio_Ru)
+
+Манаев Денис (@manaewd)
+</details>
+
+[⬆️В начало](#оглавление)
+
+
+
