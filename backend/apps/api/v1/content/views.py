@@ -7,13 +7,9 @@ class ContentViewSet(viewsets.ModelViewSet):
     """Обработчик запросов эндпоинтов Content."""
 
     queryset = Content.objects.all()
-    serializer_class = ContentSerializer
-
-    def get_queryset(self):
-        return Content.objects.all()
 
     def get_serializer_class(self):
-        if self.action == 'list' or self.action == 'retrieve':
+        if self.action == "list" or self.action == "retrieve":
             return ContentSerializer
-        elif self.action == 'partial_update':
+        elif self.action == "partial_update":
             return PartialContentSerializer

@@ -7,7 +7,15 @@ class ContentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Content
-        fields = ["id", "uploaded_at", "social_network", "status", "guide_check", "link", "ambassador",]
+        fields = [
+            "id",
+            "uploaded_at",
+            "social_network",
+            "status",
+            "guide_check",
+            "link",
+            "ambassador",
+        ]
 
 
 class PartialContentSerializer(serializers.ModelSerializer):
@@ -15,10 +23,4 @@ class PartialContentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Content
-        fields = ["social_network", "status", "guide_check", "user_comment"] 
-
-    def update(self, instance, validated_data):
-        for attr, value in validated_data.items():
-            setattr(instance, attr, value)
-        instance.save()
-        return instance
+        fields = ["social_network", "status", "guide_check", "user_comment"]
