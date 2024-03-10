@@ -16,7 +16,7 @@ from apps.sendings.models import Merch
 
 
 class ReferenceBooksAmbassadorsView(APIView):
-    """Вьюсет списка амбассадоров для выбора в новой отправке мерча."""
+    """Обработчик запросов получения списка амбассадоров для выбора в новой отправке мерча."""
 
     def get(self, request):
         ambassadors = Ambassador.objects.all()
@@ -25,7 +25,7 @@ class ReferenceBooksAmbassadorsView(APIView):
 
 
 class ReferenceBooksMerchView(APIView):
-    """Вьюсет справочника мерча."""
+    """Обработчик запросов для получения справочника мерча."""
 
     def get(self, request):
         merch = Merch.objects.all()
@@ -34,7 +34,7 @@ class ReferenceBooksMerchView(APIView):
 
 
 class ReferenceBooksProgramsView(APIView):
-    """Вьюсет справочника програм обучения для анкеты."""
+    """Обработчик запросов для получения справочника програм обучения для анкеты."""
 
     def get(self, request):
         programs = Program.objects.all()
@@ -43,7 +43,7 @@ class ReferenceBooksProgramsView(APIView):
 
 
 class ReferenceBooksSocialNetworksView(APIView):
-    """Вьюсет справочника площадок размещения контента."""
+    """Обработчик запросов для получения справочника площадок размещения контента."""
 
     def get(self, request):
         networks = SocialNetwork.objects.all()
@@ -52,7 +52,7 @@ class ReferenceBooksSocialNetworksView(APIView):
 
 
 class ReferenceBooksTargetsView(APIView):
-    """Вьюсет справочника целей амбассадорства для анкеты."""
+    """Обработчик запросов получения справочника целей амбассадорства для анкеты."""
 
     def get(self, request):
         targets = Target.objects.all()
