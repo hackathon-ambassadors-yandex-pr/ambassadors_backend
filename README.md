@@ -1,4 +1,12 @@
 ## CRM Yandex Ambassadors API
+[![Python](https://img.shields.io/badge/Python-3.11-blue)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/Django-4.2-green)](https://docs.djangoproject.com/en/4.2/)
+[![Django REST Framework](https://img.shields.io/badge/DRF-3.14.0-orange)](https://www.django-rest-framework.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue)](https://www.postgresql.org/)
+[![Docker](https://img.shields.io/badge/Docker-20.10.24-blue)](https://www.docker.com/)
+[![Nginx](https://img.shields.io/badge/Nginx-alpine-brightgreen)](https://nginx.org/)
+[![drf-spectacular](https://img.shields.io/badge/drf--spectacular-0.27.1-blue)](https://drf-spectacular.readthedocs.io/)
+[![simple-jwt](https://img.shields.io/badge/simple–jwt-5.3.1-blue)](https://github.com/SimpleJWT/django-rest-framework-simplejwt)
 
 ## Оглавление
 - [Описание](#описание)
@@ -219,58 +227,58 @@ SSH_KEY=<--BEGIN OPENSSH PRIVATE KEY--...--END OPENSSH PRIVATE KEY--> # cat ~/.s
 
 ## Команда проекта
 
-Product manager – Багинский Константин ([@kvbaginskii](https://t.me/kvbaginskii))
+Product manager – Багинский Константин (ТГ [@kvbaginskii](https://t.me/kvbaginskii))
 
-Project manager – Тарабуткина Юлиана ([@Juliana_jull](https://t.me/Juliana_jull))
+Project manager – Тарабуткина Юлиана (ТГ [@Juliana_jull](https://t.me/Juliana_jull))
 
 <details>
 <summary>системные аналитики</summary>
 
-Сканави Павел ([@Reds_on_tour](https://t.me/Reds_on_tour)) - Lead
+Сканави Павел (ТГ [@Reds_on_tour](https://t.me/Reds_on_tour)) - Lead
 
-Краснов Дмитрий ([@DmAKrasnov](https://t.me/DmAKrasnov))
+Краснов Дмитрий (ТГ [@DmAKrasnov](https://t.me/DmAKrasnov))
 
-Павлюченко Елена ([@elprianik](https://t.me/elprianik))
+Павлюченко Елена (ТГ [@elprianik](https://t.me/elprianik))
 </details>
 
 <details>
 <summary>бизнес-аналитики</summary>
 
-Павлова Мария ([@MariaPavlova111](https://t.me/MariaPavlova111)) - Lead
+Павлова Мария (ТГ [@MariaPavlova111](https://t.me/MariaPavlova111)) - Lead
 
-Бублик Михаил ([@Boymit](https://t.me/Boymit))
+Бублик Михаил (ТГ [@Boymit](https://t.me/Boymit))
 </details>
 
 <details>
 <summary>дизайнеры</summary>
 
-Фортунатова Екатерина ([@by42naa](https://t.me/by42naa)) - Lead
+Фортунатова Екатерина (ТГ [@by42naa](https://t.me/by42naa)) - Lead
 
-Торженова Юлия ([@Yuliya_Torzhenova](https://t.me/Yuliya_Torzhenova)]
+Торженова Юлия (ТГ [@Yuliya_Torzhenova](https://t.me/Yuliya_Torzhenova)]
 
-Агафонова Светлана ([@agafonova_ss](https://t.me/agafonova_ss))
+Агафонова Светлана (ТГ [@agafonova_ss](https://t.me/agafonova_ss))
 </details>
 
 <details>
 <summary>backend</summary>
 
-Лашков Павел ([@hutjinator](https://t.me/hutjinator)) - Lead
+Лашков Павел (ТГ [@hutjinator](https://t.me/hutjinator), GitHub [hutji](https://github.com/hutji)) - Lead
 
-Жуков Борис ([@sabjbrus](https://t.me/sabjbrus))
+Жуков Борис (ТГ [@sabjbrus](https://t.me/sabjbrus), GitHub [SabjBrus](https://github.com/SabjBrus))
 
-Лысогор Олег ([@tg_user_Oleg](https://t.me/tg_user_Oleg))
+Лысогор Олег (ТГ [@tg_user_Oleg](https://t.me/tg_user_Oleg), GitHub [NotMainCode](https://github.com/NotMainCodeЫ))
 
-Ефимова Екатерина ([@KatKlejton](https://t.me/KatKlejton))
+Ефимова Екатерина (ТГ [@KatKlejton](https://t.me/KatKlejton), GitHub [MrKlejton](https://github.com/MrKlejton))
 </details>
 
 <details>
 <summary>frontend</summary>
 
-Журавлев Андрей ([@Andre2296](https://t.me/Andre2296)) - Lead
+Журавлев Андрей (ТГ [@Andre2296](https://t.me/Andre2296), GitHub [AndreiZhura](https://github.com/AndreiZhura)) - Lead
 
-Типсин Дмитрий ([@Chia_Rio_Ru](https://t.me/Chia_Rio_Ru))
+Типсин Дмитрий (ТГ [@Chia_Rio_Ru](https://t.me/Chia_Rio_Ru), GitHub [TIPDMR](https://github.com/TIPDMR))
 
-Манаев Денис ([@manaewd](https://t.me/manaewd))
+Манаев Денис (ТГ [@manaewd](https://t.me/manaewd), GitHub [Manaewd](https://github.com/Manaewd))
 </details>
 
 [⬆️В начало](#оглавление)
