@@ -6,6 +6,7 @@ from rest_framework import serializers
 
 from apps.ambassadors.choice_classes import EducationTarget
 from apps.ambassadors.models import Address, Ambassador, Program, Target
+from apps.api.v1.yandex_forms.fields import ContentFormBooleanField
 from apps.content.choice_classes import ContentStatus
 from apps.content.models import Content, ContentFile
 
@@ -23,13 +24,12 @@ class AmbassadorFormSerializer(serializers.ModelSerializer):
 
     current_address = AddressFormSerializer(write_only=True)
     program = serializers.SlugRelatedField(
-        slug_field="name",
         queryset=Program.objects.all(),
-    )
-    targets = serializers.SlugRelatedField(
         slug_field="name",
-        many=True,
+    )
+    targets = serializers.PrimaryKeyRelatedField(
         queryset=Target.objects.all(),
+        many=True,
     )
 
     class Meta:
@@ -83,21 +83,10 @@ class AmbassadorFormSerializer(serializers.ModelSerializer):
         return ambassador
 
 
-class FileFormSerializer(serializers.ModelSerializer):
-    """Сериализатор для обработки файлов из формы контента."""
-
-    class Meta:
-        model = ContentFile
-        fields = (
-            "id",
-            "file",
-        )
-
-
 class ContentFormSerializer(serializers.ModelSerializer):
     """Сериализатор для обработки данных формы контента."""
 
-    content_files = FileFormSerializer(many=True, required=False)
+    guide_check = ContentFormBooleanField(default=False)
 
     class Meta:
         model = Content
@@ -108,47 +97,23 @@ class ContentFormSerializer(serializers.ModelSerializer):
             "telegram_link_from_form",
             "link",
             "guide_check",
-            "content_files",
-            "ambassador",
-            "status",
-            "uploaded_at",
         )
         extra_kwargs = {
             "first_name_from_form": {"required": True},
             "last_name_from_form": {"required": True},
             "telegram_link_from_form": {"required": True},
         }
-        read_only_fields = (
-            "ambassador",
-            "status",
-            "uploaded_at",
-        )
 
     @transaction.atomic
     def create(self, validated_data):
-        content_files = validated_data.pop("content_files", None)
         ambassador = Ambassador.objects.filter(
             telegram_link=validated_data["telegram_link_from_form"]
         ).first()
-
         if ambassador is None:
-            content = Content.objects.create(**validated_data, status=ContentStatus.TBC)
-        else:
-            content = Content.objects.create(
+            return Content.objects.create(**validated_data, status=ContentStatus.TBC)
+
+        return Content.objects.create(
                 ambassador=ambassador,
                 link=validated_data["link"],
                 guide_check=validated_data["guide_check"],
             )
-
-        if content_files is not None:
-            ContentFile.objects.bulk_create(
-                (
-                    ContentFile(
-                        content=content,
-                        file=item["file"],
-                    )
-                    for item in content_files
-                )
-            )
-
-        return content
