@@ -8,7 +8,7 @@ from apps.ambassadors.choice_classes import EducationTarget
 from apps.ambassadors.models import Address, Ambassador, Program, Target
 from apps.api.v1.yandex_forms.fields import ContentFormBooleanField
 from apps.content.choice_classes import ContentStatus
-from apps.content.models import Content, ContentFile
+from apps.content.models import Content
 
 
 class AddressFormSerializer(serializers.ModelSerializer):
@@ -113,7 +113,7 @@ class ContentFormSerializer(serializers.ModelSerializer):
             return Content.objects.create(**validated_data, status=ContentStatus.TBC)
 
         return Content.objects.create(
-                ambassador=ambassador,
-                link=validated_data["link"],
-                guide_check=validated_data["guide_check"],
-            )
+            ambassador=ambassador,
+            link=validated_data["link"],
+            guide_check=validated_data["guide_check"],
+        )
