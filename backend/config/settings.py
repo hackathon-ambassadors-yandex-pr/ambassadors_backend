@@ -143,7 +143,14 @@ CSRF_TRUSTED_ORIGINS = os.getenv(
 ).split(" ")
 
 if DEBUG:
-    INSTALLED_APPS.extend(("drf_spectacular",))
+    INSTALLED_APPS.extend(("drf_spectacular", "corsheaders"))
+
+    MIDDLEWARE.extend(("corsheaders.middleware.CorsMiddleware",))
+    CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000"]
+    CORS_URLS_REGEX = r"^/api/.*$"
+    CORS_ALLOW_HEADERS = [*default_headers, "x-xsrf-token"]
+    CORS_ALLOW_CREDENTIALS = True
+
     REST_FRAMEWORK.update(
         {"DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema"}
     )
@@ -160,6 +167,3 @@ if DEBUG:
         "SERVE_INCLUDE_SCHEMA": False,
         "POSTPROCESSING_HOOKS": [],
     }
-    CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000"]
-    CORS_URLS_REGEX = r"^/api/.*$"
-    CORS_ALLOW_HEADERS = [*default_headers, "x-xsrf-token"]
