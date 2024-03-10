@@ -4,7 +4,7 @@ from django.core.validators import MinValueValidator
 from django.db import models
 
 from apps.ambassadors.models import Address
-from apps.sendings.choice_classes import MERCH_SIZES, MerchType, SendingStatus
+from apps.sendings.choice_classes import MERCH_SIZES, MerchType, MiscSize, SendingStatus
 
 
 class Merch(models.Model):
@@ -24,6 +24,7 @@ class Merch(models.Model):
         "size",
         max_length=10,
         choices=MERCH_SIZES,
+        default=MiscSize.NZ,
     )
     unit_price = models.PositiveIntegerField(
         "unit price",
