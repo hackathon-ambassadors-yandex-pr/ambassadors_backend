@@ -1,5 +1,3 @@
-from django.urls import path
-
 from apps.api.v1.reference_books.views import (
     ReferenceBooksAmbassadorsView,
     ReferenceBooksMerchView,
@@ -7,6 +5,7 @@ from apps.api.v1.reference_books.views import (
     ReferenceBooksSocialNetworksView,
     ReferenceBooksTargetsView,
 )
+from django.urls import path
 
 urlpatterns = [
     path(

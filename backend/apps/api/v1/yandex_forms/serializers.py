@@ -1,14 +1,13 @@
 """Сериализаторы для обработки данных форм."""
 
-from django.db import transaction
-from django.utils import timezone
-from rest_framework import serializers
-
 from apps.ambassadors.choice_classes import EducationTarget
 from apps.ambassadors.models import Address, Ambassador, Program, Target
 from apps.api.v1.yandex_forms.fields import ContentFormBooleanField
 from apps.content.choice_classes import ContentStatus
 from apps.content.models import Content
+from django.db import transaction
+from django.utils import timezone
+from rest_framework import serializers
 
 
 class AddressFormSerializer(serializers.ModelSerializer):

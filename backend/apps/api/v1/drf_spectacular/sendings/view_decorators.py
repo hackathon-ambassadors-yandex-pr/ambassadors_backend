@@ -1,6 +1,3 @@
-from drf_spectacular.utils import extend_schema, extend_schema_view
-from rest_framework import status
-
 from apps.api.v1.drf_spectacular.core.serializers import (
     Response400Serializer,
     Response401Serializer,
@@ -13,6 +10,8 @@ from apps.api.v1.sendings.serializers import (
     ListSendingSerializer,
     RetrieveSendingSerializer,
 )
+from drf_spectacular.utils import extend_schema, extend_schema_view
+from rest_framework import status
 
 SENDINGS_VIEW_DECORATORS = {
     "SendingViewSet": extend_schema_view(

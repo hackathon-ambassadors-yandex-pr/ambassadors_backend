@@ -1,6 +1,3 @@
-from drf_spectacular.utils import extend_schema, extend_schema_view
-from rest_framework import status
-
 from apps.api.v1.ambassadors.serializers import (
     ListAmbassadorSerializer,
     RetrieveAmbassadorSerializer,
@@ -10,6 +7,8 @@ from apps.api.v1.drf_spectacular.core.serializers import (
     Response401Serializer,
     Response404Serializer,
 )
+from drf_spectacular.utils import extend_schema, extend_schema_view
+from rest_framework import status
 
 AMBASSADORS_VIEW_DECORATORS = {
     "AmbassadorViewSet": extend_schema_view(

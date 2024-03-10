@@ -1,11 +1,10 @@
-from django.db import models
-
 from apps.ambassadors.choice_classes import (
     AmbassadorStatus,
     ClothingSize,
     EducationTarget,
     Gender,
 )
+from django.db import models
 
 
 class Program(models.Model):
