@@ -151,6 +151,65 @@ paths:
               schema:
                 $ref: '#/components/schemas/Response404'
           description: ''
+  /api/v1/reference_books/ambassadors/:
+    get:
+      operationId: api_v1_reference_books_ambassadors_retrieve
+      description: Обработчик запросов получения списка амбассадоров для выбора в
+        новой отправке мерча.
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/reference_books/merch/:
+    get:
+      operationId: api_v1_reference_books_merch_retrieve
+      description: Обработчик запросов для получения справочника мерча.
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/reference_books/programs/:
+    get:
+      operationId: api_v1_reference_books_programs_retrieve
+      description: Обработчик запросов для получения справочника програм обучения
+        для анкеты.
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/reference_books/social_networks/:
+    get:
+      operationId: api_v1_reference_books_social_networks_retrieve
+      description: Обработчик запросов для получения справочника площадок размещения
+        контента.
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/reference_books/targets/:
+    get:
+      operationId: api_v1_reference_books_targets_retrieve
+      description: Обработчик запросов получения справочника целей амбассадорства
+        для анкеты.
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
   /api/v1/sendings/:
     get:
       operationId: api_v1_sendings_list
@@ -721,7 +780,7 @@ components:
         targets:
           type: array
           items:
-            type: string
+            type: integer
         blog_link:
           type: string
           format: uri
@@ -823,43 +882,13 @@ components:
           maxLength: 200
         guide_check:
           type: boolean
-          description: Content on topic of Beginner's Ambassador Guide
-        content_files:
-          type: array
-          items:
-            $ref: '#/components/schemas/FileForm'
-        ambassador:
-          type: integer
-          readOnly: true
-          nullable: true
-        status:
-          enum:
-          - Новый
-          - Соответствует
-          - Не соответствует
-          - Уточняется
-          type: string
-          description: |-
-            * `Новый` - New
-            * `Соответствует` - Respond
-            * `Не соответствует` - Not Respond
-            * `Уточняется` - TBC
-          x-spec-enum-id: 69e6e94ffc64f2b6
-          readOnly: true
-        uploaded_at:
-          type: string
-          format: date
-          readOnly: true
-          title: Upload date
+          default: false
       required:
-      - ambassador
       - first_name_from_form
       - id
       - last_name_from_form
       - link
-      - status
       - telegram_link_from_form
-      - uploaded_at
     CreateSending:
       type: object
       description: Сериализатор для создания объекта Sending.
@@ -1008,19 +1037,6 @@ components:
       - targets
       - telegram_link
       - work_place
-    FileForm:
-      type: object
-      description: Сериализатор для обработки файлов из формы контента.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        file:
-          type: string
-          format: uri
-      required:
-      - file
-      - id
     ListAmbassador:
       type: object
       description: Сериализатор для возвращения списка объектов Ambassadors.
@@ -1063,7 +1079,6 @@ components:
           readOnly: true
         content_count:
           type: integer
-          readOnly: true
       required:
       - content_count
       - current_promocode
