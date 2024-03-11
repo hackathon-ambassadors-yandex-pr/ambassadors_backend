@@ -1,0 +1,2307 @@
+openapi: 3.0.3
+info:
+  title: CRM Yandex Ambassadors
+  version: ' ver 1.0 (команда №7)'
+  description: CRM система работы с амбассадорами для Команды реферального маркетинга
+    Яндекс
+paths:
+  /api/v1/ambassadors/:
+    get:
+      operationId: api_v1_ambassadors_list
+      description: Список амбассадоров (экран Амбассадоры)
+      tags:
+      - Ambassadors
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListAmbassador'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+    post:
+      operationId: api_v1_ambassadors_create
+      description: Новый амбассадор (карточка)
+      tags:
+      - Ambassadors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUpdateAmbassador'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateUpdateAmbassador'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateUpdateAmbassador'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveAmbassador'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+  /api/v1/ambassadors/{id}/:
+    get:
+      operationId: api_v1_ambassadors_retrieve
+      description: Данные амбассадора (карточка) и история контента / отправок мерча
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this ambassador.
+        required: true
+      tags:
+      - Ambassadors
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveAmbassador'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response404'
+          description: ''
+    put:
+      operationId: api_v1_ambassadors_update
+      description: Обновление данных амбассадора (карточка)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this ambassador.
+        required: true
+      tags:
+      - Ambassadors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUpdateAmbassador'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateUpdateAmbassador'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateUpdateAmbassador'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveAmbassador'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response404'
+          description: ''
+  /api/v1/contents/:
+    get:
+      operationId: api_v1_contents_list
+      description: Список контента амбассадоров (экран Контент)
+      tags:
+      - Contents
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListContent'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+  /api/v1/contents/{id}/:
+    get:
+      operationId: api_v1_contents_retrieve
+      description: Данные контента амбассадора (карточка)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this content.
+        required: true
+      tags:
+      - Contents
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveContent'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response404'
+          description: ''
+    patch:
+      operationId: api_v1_contents_partial_update
+      description: Обновление данных контента амбассадора (карточка)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this content.
+        required: true
+      tags:
+      - Contents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPartialUpdateContent'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPartialUpdateContent'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPartialUpdateContent'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartialUpdateContent'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response404'
+          description: ''
+  /api/v1/merches/:
+    get:
+      operationId: api_v1_merches_list
+      description: Список мерча.
+      tags:
+      - Merches
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreateListMerch'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+    post:
+      operationId: api_v1_merches_create
+      description: Новый мерч.
+      tags:
+      - Merches
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateListMerch'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateListMerch'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateListMerch'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateListMerch'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+  /api/v1/merches/{id}/:
+    patch:
+      operationId: api_v1_merches_partial_update
+      description: Обновление данных мерча.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this merch.
+        required: true
+      tags:
+      - Merches
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPartialUpdateMerch'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPartialUpdateMerch'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPartialUpdateMerch'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartialUpdateMerch'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response404'
+          description: ''
+  /api/v1/reference_books/ambassadors/:
+    get:
+      operationId: api_v1_reference_books_ambassadors_retrieve
+      description: Список амбассадоров для выбора в новой отправке мерча
+      tags:
+      - Reference Books
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AmbassadorReferenceBooks'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+  /api/v1/reference_books/merch/:
+    get:
+      operationId: api_v1_reference_books_merch_retrieve
+      description: Справочник мерча
+      tags:
+      - Reference Books
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MerchReferenceBooks'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+  /api/v1/reference_books/programs/:
+    get:
+      operationId: api_v1_reference_books_programs_retrieve
+      description: Справочник программ обучения для анкеты
+      tags:
+      - Reference Books
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Program'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+  /api/v1/reference_books/social_networks/:
+    get:
+      operationId: api_v1_reference_books_social_networks_retrieve
+      description: Справочник площадок размещения контента / активностей амбассадора
+      tags:
+      - Reference Books
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SocialNetworkReferenceBooks'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+  /api/v1/reference_books/targets/:
+    get:
+      operationId: api_v1_reference_books_targets_retrieve
+      description: Справочник целей амбассадорства для анкеты
+      tags:
+      - Reference Books
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Target'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+  /api/v1/sendings/:
+    get:
+      operationId: api_v1_sendings_list
+      description: Список отправок мерча амбассадорам (экран Мерч)
+      tags:
+      - Sendings
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListSending'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+    post:
+      operationId: api_v1_sendings_create
+      description: Новая отправка мерча амбассадору (карточка)
+      tags:
+      - Sendings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSending'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateSending'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateSending'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveSending'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+  /api/v1/sendings/{id}/:
+    get:
+      operationId: api_v1_sendings_retrieve
+      description: Данные отправки мерча амбассадору (карточка)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this sending.
+        required: true
+      tags:
+      - Sendings
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveSending'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response404'
+          description: ''
+    patch:
+      operationId: api_v1_sendings_partial_update
+      description: Обновление данных отправки мерча амбассадору (карточка)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this sending.
+        required: true
+      tags:
+      - Sendings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPartialUpdateSending'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPartialUpdateSending'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPartialUpdateSending'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveSending'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendingUpdateResponse403'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response404'
+          description: ''
+  /api/v1/tokens/refresh/:
+    post:
+      operationId: api_v1_tokens_refresh_create
+      description: Обновление JWT токенов
+      tags:
+      - Tokens
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+  /api/v1/users/:
+    post:
+      operationId: api_v1_users_create
+      description: Создание профайла нового пользователя
+      tags:
+      - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+  /api/v1/users/login/:
+    post:
+      operationId: api_v1_users_login_create
+      description: Получение JWT токенов
+      tags:
+      - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+  /api/v1/users/me/:
+    get:
+      operationId: api_v1_users_me_retrieve
+      description: Получение данных пользователя
+      tags:
+      - Users
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+    patch:
+      operationId: api_v1_users_me_partial_update
+      description: Изменение данных пользователя
+      tags:
+      - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+  /api/v1/yandex_forms/ambassador_forms/:
+    post:
+      operationId: api_v1_yandex_forms_ambassador_forms_create
+      description: Обработчик запросов на эндпоинт ambassador_forms/.
+      tags:
+      - Yandex Forms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AmbassadorForm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AmbassadorForm'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AmbassadorForm'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+  /api/v1/yandex_forms/content_forms/:
+    post:
+      operationId: api_v1_yandex_forms_content_forms_create
+      description: Обработчик запросов на эндпоинт content_forms/.
+      tags:
+      - Yandex Forms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContentForm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ContentForm'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ContentForm'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+components:
+  schemas:
+    Address:
+      type: object
+      description: Сериализатор для работы с объектом Address.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        country:
+          type: string
+          maxLength: 20
+        city:
+          type: string
+          maxLength: 20
+        address:
+          type: string
+          maxLength: 100
+        code:
+          type: string
+          title: Postal code
+          maxLength: 10
+        is_current:
+          type: boolean
+          title: Current
+      required:
+      - address
+      - city
+      - code
+      - country
+      - id
+    AddressForm:
+      type: object
+      description: Сериализатор для обработки данных адреса из формы амбассадора.
+      properties:
+        country:
+          type: string
+          maxLength: 20
+        city:
+          type: string
+          maxLength: 20
+        address:
+          type: string
+          maxLength: 100
+        code:
+          type: string
+          title: Postal code
+          maxLength: 10
+      required:
+      - address
+      - city
+      - code
+      - country
+    AddressReferenceBooks:
+      type: object
+      description: Сериализатор для поля address в AmbassadorReferenceBooksSerializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        country:
+          type: string
+          maxLength: 20
+        city:
+          type: string
+          maxLength: 20
+        address:
+          type: string
+          maxLength: 100
+        code:
+          type: string
+          title: Postal code
+          maxLength: 10
+      required:
+      - address
+      - city
+      - code
+      - country
+      - id
+    Ambassador:
+      type: object
+      description: Сериализатор объекта Ambassador для использования в RetrieveSendingSerializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 20
+        middle_name:
+          type: string
+          maxLength: 20
+        last_name:
+          type: string
+          maxLength: 20
+        clothing_size:
+          enum:
+          - XS
+          - S
+          - M
+          - L
+          - XL
+          type: string
+          description: |-
+            * `XS` - XS
+            * `S` - S
+            * `M` - M
+            * `L` - L
+            * `XL` - XL
+          x-spec-enum-id: 1faf818ca57badf8
+        shoe_size:
+          type: string
+          maxLength: 5
+        telegram_link:
+          type: string
+          format: uri
+          maxLength: 50
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        mobile_phone:
+          type: string
+          maxLength: 20
+      required:
+      - clothing_size
+      - email
+      - first_name
+      - id
+      - last_name
+      - middle_name
+      - mobile_phone
+      - shoe_size
+      - telegram_link
+    AmbassadorBrief:
+      type: object
+      description: Сериализатор объекта Ambassador для использования в ListSendingSerializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 20
+        last_name:
+          type: string
+          maxLength: 20
+      required:
+      - first_name
+      - id
+      - last_name
+    AmbassadorContentBase:
+      type: object
+      description: Сериализатор для поля ambassador в ContentBaseSerialiser.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 20
+        last_name:
+          type: string
+          maxLength: 20
+        telegram_link:
+          type: string
+          format: uri
+          maxLength: 50
+      required:
+      - first_name
+      - id
+      - last_name
+      - telegram_link
+    AmbassadorForm:
+      type: object
+      description: Сериализатор для обработки данных формы амбассадора.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 20
+        middle_name:
+          type: string
+          maxLength: 20
+        last_name:
+          type: string
+          maxLength: 20
+        gender:
+          enum:
+          - М
+          - Ж
+          type: string
+          description: |-
+            * `М` - Male
+            * `Ж` - Female
+          x-spec-enum-id: bcf066e9f43b3937
+        program:
+          type: string
+        current_address:
+          allOf:
+          - $ref: '#/components/schemas/AddressForm'
+          writeOnly: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        mobile_phone:
+          type: string
+          maxLength: 20
+        telegram_link:
+          type: string
+          format: uri
+          maxLength: 50
+        education:
+          type: string
+        work_place:
+          type: string
+        education_target:
+          enum:
+          - Получение новой профессии, чтобы сменить работу
+          - Углубление имеющихся знаний, чтобы использовать их в текущей работе
+          - Свой вариант
+          type: string
+          description: |-
+            * `Получение новой профессии, чтобы сменить работу` - New Profession
+            * `Углубление имеющихся знаний, чтобы использовать их в текущей работе` - Deepen Knowledge
+            * `Свой вариант` - Other
+          x-spec-enum-id: a23c619e7a569381
+        education_target_own:
+          type: string
+          title: Own target of education
+        targets:
+          type: array
+          items:
+            type: integer
+        blog_link:
+          type: string
+          format: uri
+          maxLength: 200
+        clothing_size:
+          enum:
+          - XS
+          - S
+          - M
+          - L
+          - XL
+          type: string
+          description: |-
+            * `XS` - XS
+            * `S` - S
+            * `M` - M
+            * `L` - L
+            * `XL` - XL
+          x-spec-enum-id: 1faf818ca57badf8
+        shoe_size:
+          type: string
+          maxLength: 5
+        comment_ambassador:
+          type: string
+          title: Ambassador's comment
+      required:
+      - blog_link
+      - clothing_size
+      - current_address
+      - education
+      - education_target
+      - email
+      - first_name
+      - gender
+      - id
+      - last_name
+      - middle_name
+      - mobile_phone
+      - program
+      - shoe_size
+      - targets
+      - telegram_link
+      - work_place
+    AmbassadorReferenceBooks:
+      type: object
+      description: Сериализатор списка амбассадоров для выбора в новой отправке мерча
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        last_name:
+          type: string
+          maxLength: 20
+        first_name:
+          type: string
+          maxLength: 20
+        middle_name:
+          type: string
+          maxLength: 20
+        clothing_size:
+          enum:
+          - XS
+          - S
+          - M
+          - L
+          - XL
+          type: string
+          description: |-
+            * `XS` - XS
+            * `S` - S
+            * `M` - M
+            * `L` - L
+            * `XL` - XL
+          x-spec-enum-id: 1faf818ca57badf8
+        shoe_size:
+          type: string
+          maxLength: 5
+        telegram_link:
+          type: string
+          format: uri
+          maxLength: 50
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        mobile_phone:
+          type: string
+          maxLength: 20
+        current_address:
+          $ref: '#/components/schemas/AddressReferenceBooks'
+      required:
+      - clothing_size
+      - current_address
+      - email
+      - first_name
+      - id
+      - last_name
+      - middle_name
+      - mobile_phone
+      - shoe_size
+      - telegram_link
+    Content:
+      type: object
+      description: Сериализатор для работы с объектом Content.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        uploaded_at:
+          type: string
+          format: date
+          readOnly: true
+          title: Upload date
+        status:
+          enum:
+          - Новый
+          - Соответствует
+          - Не соответствует
+          - Уточняется
+          type: string
+          description: |-
+            * `Новый` - New
+            * `Соответствует` - Respond
+            * `Не соответствует` - Not Respond
+            * `Уточняется` - TBC
+          x-spec-enum-id: 69e6e94ffc64f2b6
+        link:
+          type: string
+          format: uri
+          description: Link to content
+          maxLength: 200
+      required:
+      - id
+      - link
+      - uploaded_at
+    ContentFile:
+      type: object
+      description: Сериализатор для работы с объектами ContentFile.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        file:
+          type: string
+          format: uri
+      required:
+      - file
+      - id
+    ContentForm:
+      type: object
+      description: Сериализатор для обработки данных формы контента.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name_from_form:
+          type: string
+          maxLength: 20
+        last_name_from_form:
+          type: string
+          maxLength: 20
+        telegram_link_from_form:
+          type: string
+          format: uri
+          maxLength: 50
+        link:
+          type: string
+          format: uri
+          description: Link to content
+          maxLength: 200
+        guide_check:
+          type: boolean
+          default: false
+      required:
+      - first_name_from_form
+      - id
+      - last_name_from_form
+      - link
+      - telegram_link_from_form
+    CreateListMerch:
+      type: object
+      description: Сериализатор для получения списка объектов Merch и их создания.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 20
+        type:
+          enum:
+          - Обувь
+          - Одежда
+          - Разное
+          type: string
+          description: |-
+            * `Обувь` - Shoes
+            * `Одежда` - Clothing
+            * `Разное` - Misc
+          x-spec-enum-id: 78b22143520d2832
+        size:
+          type: string
+          maxLength: 10
+        unit_price:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        quantity:
+          type: integer
+          maximum: 32767
+          minimum: 0
+      required:
+      - id
+      - name
+      - quantity
+      - size
+      - type
+      - unit_price
+    CreateSending:
+      type: object
+      description: Сериализатор для создания объекта Sending.
+      properties:
+        ambassador:
+          type: integer
+        user_comment:
+          type: string
+          title: Comment
+        sending_merches:
+          type: array
+          items:
+            $ref: '#/components/schemas/SendingToMerch'
+      required:
+      - ambassador
+      - sending_merches
+      - user_comment
+    CreateUpdateAmbassador:
+      type: object
+      description: Сериализатор для создания или изменения объекта Ambassador.
+      properties:
+        last_name:
+          type: string
+          maxLength: 20
+        first_name:
+          type: string
+          maxLength: 20
+        middle_name:
+          type: string
+          maxLength: 20
+        gender:
+          enum:
+          - М
+          - Ж
+          type: string
+          description: |-
+            * `М` - Male
+            * `Ж` - Female
+          x-spec-enum-id: bcf066e9f43b3937
+        status:
+          enum:
+          - Новый
+          - Активный
+          - Уточняется
+          - На паузе
+          - Архив
+          type: string
+          description: |-
+            * `Новый` - New
+            * `Активный` - Active
+            * `Уточняется` - TBC
+            * `На паузе` - On Pause
+            * `Архив` - Archive
+          x-spec-enum-id: 52c0f104267b297e
+        user_comment:
+          type: string
+          title: Comment
+        clothing_size:
+          enum:
+          - XS
+          - S
+          - M
+          - L
+          - XL
+          type: string
+          description: |-
+            * `XS` - XS
+            * `S` - S
+            * `M` - M
+            * `L` - L
+            * `XL` - XL
+          x-spec-enum-id: 1faf818ca57badf8
+        shoe_size:
+          type: string
+          maxLength: 5
+        telegram_link:
+          type: string
+          format: uri
+          maxLength: 50
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        mobile_phone:
+          type: string
+          maxLength: 20
+        blog_link:
+          type: string
+          format: uri
+          maxLength: 200
+        education:
+          type: string
+        work_place:
+          type: string
+        education_target:
+          enum:
+          - Получение новой профессии, чтобы сменить работу
+          - Углубление имеющихся знаний, чтобы использовать их в текущей работе
+          - Свой вариант
+          type: string
+          description: |-
+            * `Получение новой профессии, чтобы сменить работу` - New Profession
+            * `Углубление имеющихся знаний, чтобы использовать их в текущей работе` - Deepen Knowledge
+            * `Свой вариант` - Other
+          x-spec-enum-id: a23c619e7a569381
+        education_target_own:
+          type: string
+          title: Own target of education
+        onboarding_date:
+          type: string
+          format: date
+          nullable: true
+        guide_date:
+          type: string
+          format: date
+          nullable: true
+          title: Date of completion of guide
+        comment_ambassador:
+          type: string
+          title: Ambassador's comment
+        program:
+          type: integer
+        targets:
+          type: array
+          items:
+            type: integer
+        current_address:
+          $ref: '#/components/schemas/Address'
+        current_promocode:
+          $ref: '#/components/schemas/Promocode'
+      required:
+      - blog_link
+      - clothing_size
+      - current_address
+      - current_promocode
+      - education
+      - education_target
+      - email
+      - first_name
+      - gender
+      - last_name
+      - middle_name
+      - mobile_phone
+      - program
+      - shoe_size
+      - targets
+      - telegram_link
+      - work_place
+    ListAmbassador:
+      type: object
+      description: Сериализатор для возвращения списка объектов Ambassadors.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 20
+        last_name:
+          type: string
+          maxLength: 20
+        registration_date:
+          type: string
+          format: date
+          readOnly: true
+        status:
+          enum:
+          - Новый
+          - Активный
+          - Уточняется
+          - На паузе
+          - Архив
+          type: string
+          description: |-
+            * `Новый` - New
+            * `Активный` - Active
+            * `Уточняется` - TBC
+            * `На паузе` - On Pause
+            * `Архив` - Archive
+          x-spec-enum-id: 52c0f104267b297e
+        telegram_link:
+          type: string
+          format: uri
+          maxLength: 50
+        current_promocode:
+          allOf:
+          - $ref: '#/components/schemas/Promocode'
+          readOnly: true
+        content_count:
+          type: integer
+      required:
+      - content_count
+      - current_promocode
+      - first_name
+      - id
+      - last_name
+      - registration_date
+      - telegram_link
+    ListContent:
+      type: object
+      description: Сериализатор для получения списка объектов Content.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        link:
+          type: string
+          format: uri
+          description: Link to content
+          maxLength: 200
+        status:
+          enum:
+          - Новый
+          - Соответствует
+          - Не соответствует
+          - Уточняется
+          type: string
+          description: |-
+            * `Новый` - New
+            * `Соответствует` - Respond
+            * `Не соответствует` - Not Respond
+            * `Уточняется` - TBC
+          x-spec-enum-id: 69e6e94ffc64f2b6
+        guide_check:
+          type: boolean
+          description: Content on topic of Beginner's Ambassador Guide
+        social_network:
+          type: string
+        first_name_from_form:
+          type: string
+          maxLength: 20
+        last_name_from_form:
+          type: string
+          maxLength: 20
+        telegram_link_from_form:
+          type: string
+          format: uri
+          maxLength: 50
+        ambassador:
+          $ref: '#/components/schemas/AmbassadorContentBase'
+        files_exist:
+          type: boolean
+        uploaded_at:
+          type: string
+          format: date
+          readOnly: true
+          title: Upload date
+      required:
+      - ambassador
+      - files_exist
+      - id
+      - link
+      - social_network
+      - uploaded_at
+    ListSending:
+      type: object
+      description: Сериализатор списка объектов Sending.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+          title: Date of creation
+        status:
+          enum:
+          - Отправлено
+          - Ошибка
+          type: string
+          description: |-
+            * `Отправлено` - Sent
+            * `Ошибка` - Error
+          x-spec-enum-id: 7beb2be30e053ac2
+        ambassador:
+          $ref: '#/components/schemas/AmbassadorBrief'
+        sending_merches:
+          type: array
+          items:
+            $ref: '#/components/schemas/SendingMerch'
+      required:
+      - ambassador
+      - created_at
+      - id
+      - sending_merches
+    MerchReferenceBooks:
+      type: object
+      description: Сериализатор для работы с объектом Merch.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          enum:
+          - Обувь
+          - Одежда
+          - Разное
+          type: string
+          description: |-
+            * `Обувь` - Shoes
+            * `Одежда` - Clothing
+            * `Разное` - Misc
+          x-spec-enum-id: 78b22143520d2832
+        name:
+          type: string
+          maxLength: 20
+        unit_price:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+      required:
+      - id
+      - name
+      - type
+      - unit_price
+    PartialUpdateContent:
+      type: object
+      description: Сериализатор для частичного обновления объекта Content.
+      properties:
+        social_network:
+          type: integer
+          nullable: true
+        status:
+          enum:
+          - Новый
+          - Соответствует
+          - Не соответствует
+          - Уточняется
+          type: string
+          description: |-
+            * `Новый` - New
+            * `Соответствует` - Respond
+            * `Не соответствует` - Not Respond
+            * `Уточняется` - TBC
+          x-spec-enum-id: 69e6e94ffc64f2b6
+        guide_check:
+          type: boolean
+          description: Content on topic of Beginner's Ambassador Guide
+        user_comment:
+          type: string
+          title: Comment
+        ambassador:
+          type: integer
+          nullable: true
+    PartialUpdateMerch:
+      type: object
+      description: Сериализатор для частичного обновления объекта Merch.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 20
+        type:
+          enum:
+          - Обувь
+          - Одежда
+          - Разное
+          type: string
+          description: |-
+            * `Обувь` - Shoes
+            * `Одежда` - Clothing
+            * `Разное` - Misc
+          x-spec-enum-id: 78b22143520d2832
+        size:
+          type: string
+          maxLength: 10
+        unit_price:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        quantity:
+          type: integer
+          readOnly: true
+      required:
+      - id
+      - name
+      - quantity
+      - size
+      - type
+      - unit_price
+    PatchedPartialUpdateContent:
+      type: object
+      description: Сериализатор для частичного обновления объекта Content.
+      properties:
+        social_network:
+          type: integer
+          nullable: true
+        status:
+          enum:
+          - Новый
+          - Соответствует
+          - Не соответствует
+          - Уточняется
+          type: string
+          description: |-
+            * `Новый` - New
+            * `Соответствует` - Respond
+            * `Не соответствует` - Not Respond
+            * `Уточняется` - TBC
+          x-spec-enum-id: 69e6e94ffc64f2b6
+        guide_check:
+          type: boolean
+          description: Content on topic of Beginner's Ambassador Guide
+        user_comment:
+          type: string
+          title: Comment
+        ambassador:
+          type: integer
+          nullable: true
+    PatchedPartialUpdateMerch:
+      type: object
+      description: Сериализатор для частичного обновления объекта Merch.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 20
+        type:
+          enum:
+          - Обувь
+          - Одежда
+          - Разное
+          type: string
+          description: |-
+            * `Обувь` - Shoes
+            * `Одежда` - Clothing
+            * `Разное` - Misc
+          x-spec-enum-id: 78b22143520d2832
+        size:
+          type: string
+          maxLength: 10
+        unit_price:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        quantity:
+          type: integer
+          readOnly: true
+    PatchedPartialUpdateSending:
+      type: object
+      description: Сериализатор для частичного обновления объекта Sending.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        status:
+          enum:
+          - Отправлено
+          - Ошибка
+          type: string
+          description: |-
+            * `Отправлено` - Sent
+            * `Ошибка` - Error
+          x-spec-enum-id: 7beb2be30e053ac2
+        user_comment:
+          type: string
+          title: Comment
+    PatchedUser:
+      type: object
+      description: Сериализатор модели пользователя.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        last_name:
+          type: string
+          maxLength: 20
+        first_name:
+          type: string
+          maxLength: 20
+        middle_name:
+          type: string
+          maxLength: 20
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        registration_date:
+          type: string
+          format: date
+          readOnly: true
+        avatar:
+          type: string
+          format: uri
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 128
+    Program:
+      type: object
+      description: Сериализатор для работы с объектом Program.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+      required:
+      - id
+      - name
+    Promocode:
+      type: object
+      description: Сериализатор для работы с объектом Promocode.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        value:
+          type: string
+          title: Promocode value
+          maxLength: 20
+        is_current:
+          type: boolean
+          title: Current
+      required:
+      - id
+      - value
+    Response400:
+      type: object
+      description: 'Ответ 400: Некорректное значение поля или отсутствует обязательное
+        поле.'
+      properties:
+        field_name:
+          type: array
+          items:
+            type: string
+            default: Некорректное значение поля или отсутствует обязательное поле.
+      required:
+      - field_name
+    Response401:
+      type: object
+      description: 'Ответ 401: Аутентификация не пройдена.'
+      properties:
+        detail:
+          type: string
+          default: Аутентификация не пройдена.
+    Response404:
+      type: object
+      description: 'Ответ 404: Объект не найден.'
+      properties:
+        detail:
+          type: string
+          default: Объект не найден.
+    RetrieveAmbassador:
+      type: object
+      description: Сериализатор для возвращения объекта Ambassador.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        last_name:
+          type: string
+          maxLength: 20
+        first_name:
+          type: string
+          maxLength: 20
+        middle_name:
+          type: string
+          maxLength: 20
+        gender:
+          enum:
+          - М
+          - Ж
+          type: string
+          description: |-
+            * `М` - Male
+            * `Ж` - Female
+          x-spec-enum-id: bcf066e9f43b3937
+        status:
+          enum:
+          - Новый
+          - Активный
+          - Уточняется
+          - На паузе
+          - Архив
+          type: string
+          description: |-
+            * `Новый` - New
+            * `Активный` - Active
+            * `Уточняется` - TBC
+            * `На паузе` - On Pause
+            * `Архив` - Archive
+          x-spec-enum-id: 52c0f104267b297e
+        registration_date:
+          type: string
+          format: date
+          readOnly: true
+        user_comment:
+          type: string
+          title: Comment
+        clothing_size:
+          enum:
+          - XS
+          - S
+          - M
+          - L
+          - XL
+          type: string
+          description: |-
+            * `XS` - XS
+            * `S` - S
+            * `M` - M
+            * `L` - L
+            * `XL` - XL
+          x-spec-enum-id: 1faf818ca57badf8
+        shoe_size:
+          type: string
+          maxLength: 5
+        telegram_link:
+          type: string
+          format: uri
+          maxLength: 50
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        mobile_phone:
+          type: string
+          maxLength: 20
+        blog_link:
+          type: string
+          format: uri
+          maxLength: 200
+        education:
+          type: string
+        work_place:
+          type: string
+        education_target:
+          enum:
+          - Получение новой профессии, чтобы сменить работу
+          - Углубление имеющихся знаний, чтобы использовать их в текущей работе
+          - Свой вариант
+          type: string
+          description: |-
+            * `Получение новой профессии, чтобы сменить работу` - New Profession
+            * `Углубление имеющихся знаний, чтобы использовать их в текущей работе` - Deepen Knowledge
+            * `Свой вариант` - Other
+          x-spec-enum-id: a23c619e7a569381
+        education_target_own:
+          type: string
+          title: Own target of education
+        onboarding_date:
+          type: string
+          format: date
+          nullable: true
+        guide_date:
+          type: string
+          format: date
+          nullable: true
+          title: Date of completion of guide
+        comment_ambassador:
+          type: string
+          title: Ambassador's comment
+        program:
+          allOf:
+          - $ref: '#/components/schemas/Program'
+          readOnly: true
+        targets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Target'
+          readOnly: true
+        current_address:
+          allOf:
+          - $ref: '#/components/schemas/Address'
+          readOnly: true
+        current_promocode:
+          allOf:
+          - $ref: '#/components/schemas/Promocode'
+          readOnly: true
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/Content'
+          readOnly: true
+        sendings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sending'
+          readOnly: true
+      required:
+      - blog_link
+      - clothing_size
+      - contents
+      - current_address
+      - current_promocode
+      - education
+      - education_target
+      - email
+      - first_name
+      - gender
+      - id
+      - last_name
+      - middle_name
+      - mobile_phone
+      - program
+      - registration_date
+      - sendings
+      - shoe_size
+      - targets
+      - telegram_link
+      - work_place
+    RetrieveContent:
+      type: object
+      description: Сериализатор для получения подробной информации об объекте Content.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        link:
+          type: string
+          format: uri
+          description: Link to content
+          maxLength: 200
+        status:
+          enum:
+          - Новый
+          - Соответствует
+          - Не соответствует
+          - Уточняется
+          type: string
+          description: |-
+            * `Новый` - New
+            * `Соответствует` - Respond
+            * `Не соответствует` - Not Respond
+            * `Уточняется` - TBC
+          x-spec-enum-id: 69e6e94ffc64f2b6
+        guide_check:
+          type: boolean
+          description: Content on topic of Beginner's Ambassador Guide
+        social_network:
+          type: string
+        first_name_from_form:
+          type: string
+          maxLength: 20
+        last_name_from_form:
+          type: string
+          maxLength: 20
+        telegram_link_from_form:
+          type: string
+          format: uri
+          maxLength: 50
+        ambassador:
+          $ref: '#/components/schemas/AmbassadorContentBase'
+        user_comment:
+          type: string
+          title: Comment
+        content_files:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentFile'
+      required:
+      - ambassador
+      - content_files
+      - id
+      - link
+      - social_network
+    RetrieveSending:
+      type: object
+      description: Сериализатор объекта Sending.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        reg_number:
+          type: string
+          readOnly: true
+          title: Registration number
+        status:
+          enum:
+          - Отправлено
+          - Ошибка
+          type: string
+          description: |-
+            * `Отправлено` - Sent
+            * `Ошибка` - Error
+          x-spec-enum-id: 7beb2be30e053ac2
+        user_comment:
+          type: string
+          title: Comment
+        address:
+          $ref: '#/components/schemas/SendingAddress'
+        ambassador:
+          $ref: '#/components/schemas/Ambassador'
+        sending_merches:
+          type: array
+          items:
+            $ref: '#/components/schemas/SendingToMerch'
+      required:
+      - address
+      - ambassador
+      - id
+      - reg_number
+      - sending_merches
+    Sending:
+      type: object
+      description: Сериализатор для работы с объектом Sending.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date
+          readOnly: true
+          title: Date of creation
+        status:
+          enum:
+          - Отправлено
+          - Ошибка
+          type: string
+          description: |-
+            * `Отправлено` - Sent
+            * `Ошибка` - Error
+          x-spec-enum-id: 7beb2be30e053ac2
+      required:
+      - created_at
+      - id
+    SendingAddress:
+      type: object
+      description: Сериализатор объекта Address для использования в RetrieveSendingSerializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        code:
+          type: string
+          title: Postal code
+          maxLength: 10
+        country:
+          type: string
+          maxLength: 20
+        city:
+          type: string
+          maxLength: 20
+        address:
+          type: string
+          maxLength: 100
+      required:
+      - address
+      - city
+      - code
+      - country
+      - id
+    SendingMerch:
+      type: object
+      description: Сериализатор для получения значения поля sending_merches в ListSendingSerializer.
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      required:
+      - id
+      - name
+    SendingToMerch:
+      type: object
+      description: Сериализатор для работы с объектами SendingToMerch.
+      properties:
+        merch:
+          type: integer
+        size:
+          type: string
+          maxLength: 10
+        quantity:
+          type: integer
+          maximum: 2147483647
+          minimum: 1
+        unit_price:
+          type: integer
+          readOnly: true
+          description: Unit price at time of dispatch
+      required:
+      - merch
+      - quantity
+      - size
+      - unit_price
+    SendingUpdateResponse403:
+      type: object
+      description: Ответ 403. Обновление объекта Sending не разрешено.
+      properties:
+        detail:
+          type: string
+          default: Не допускается изменение объекта Sending, статус которого не 'Sent'.
+    SocialNetworkReferenceBooks:
+      type: object
+      description: Сериализатор для работы с объектом SocialNetwork.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+      required:
+      - id
+      - name
+    Target:
+      type: object
+      description: Сериализатор для работы с объектом Target.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+      required:
+      - id
+      - name
+    TokenObtainPair:
+      type: object
+      properties:
+        email:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - email
+      - password
+      - refresh
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+      required:
+      - access
+      - refresh
+    User:
+      type: object
+      description: Сериализатор модели пользователя.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        last_name:
+          type: string
+          maxLength: 20
+        first_name:
+          type: string
+          maxLength: 20
+        middle_name:
+          type: string
+          maxLength: 20
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        registration_date:
+          type: string
+          format: date
+          readOnly: true
+        avatar:
+          type: string
+          format: uri
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 128
+      required:
+      - email
+      - first_name
+      - id
+      - last_name
+      - middle_name
+      - password
+      - registration_date
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+externalDocs:
+  description: Подробнее о проекте на доске MIRO
+  url: https://miro.com/app/board/uXjVNuiJsOE=/
