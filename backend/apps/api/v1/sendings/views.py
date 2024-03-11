@@ -1,7 +1,5 @@
 """Обработчики запросов на эндпоинты Sendings API v1."""
 
-from rest_framework.permissions import IsAuthenticated
-
 from apps.api.v1.drf_spectacular.custom_decorators import (
     get_drf_spectacular_view_decorator,
 )
@@ -14,6 +12,7 @@ from apps.api.v1.sendings.serializers import (
 )
 from apps.api.v1.sendings.viewsets import CreateListRetrievePartialUpdateViewSet
 from apps.sendings.models import Sending
+from rest_framework.permissions import IsAuthenticated
 
 
 @get_drf_spectacular_view_decorator("sendings")

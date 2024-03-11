@@ -1,8 +1,7 @@
 """Настройки админ сайта для приложения Sendings."""
 
-from django.contrib import admin
-
 from apps.sendings.models import Merch, Sending
+from django.contrib import admin
 
 
 @admin.register(Merch)

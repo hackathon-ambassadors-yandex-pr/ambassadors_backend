@@ -8,4 +8,5 @@ urlpatterns = [
     path("merches/", include("apps.api.v1.merches.urls")),
     path("yandex_forms/", include("apps.api.v1.yandex_forms.urls")),
     path("reference_books/", include("apps.api.v1.reference_books.urls")),
+    path("contents/", include("apps.api.v1.content.urls")),
 ]

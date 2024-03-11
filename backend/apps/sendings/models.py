@@ -1,10 +1,9 @@
 """Настройки БД приложения Sendings."""
 
-from django.core.validators import MinValueValidator
-from django.db import models
-
 from apps.ambassadors.models import Address
 from apps.sendings.choice_classes import MerchType, SendingStatus
+from django.core.validators import MinValueValidator
+from django.db import models
 
 
 class Merch(models.Model):

@@ -1,6 +1,5 @@
-from django.contrib import admin
-
 from apps.ambassadors.models import Address, Ambassador, Program, Promocode, Target
+from django.contrib import admin
 
 
 @admin.register(Program)

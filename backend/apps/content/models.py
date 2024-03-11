@@ -1,7 +1,6 @@
-from django.db import models
-
 from apps.ambassadors.models import Ambassador
 from apps.content.choice_classes import ContentStatus
+from django.db import models
 
 
 class SocialNetwork(models.Model):
