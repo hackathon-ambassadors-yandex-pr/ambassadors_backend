@@ -4,35 +4,41 @@ from rest_framework.views import APIView
 from apps.ambassadors.models import Ambassador, Program, Target
 from apps.api.v1.ambassadors.serializers import (
     ProgramSerializer,
-    RetrieveAmbassadorSerializer,
     TargetSerializer,
 )
+from apps.api.v1.drf_spectacular.custom_decorators import (
+    get_drf_spectacular_view_decorator,
+)
 from apps.api.v1.reference_books.serializers import (
-    MerchSerializer,
-    SocialNetworkSerializer,
+    AmbassadorReferenceBooksSerializer,
+    MerchReferenceBooksSerializer,
+    SocialNetworkReferenceBooksSerializer,
 )
 from apps.content.models import SocialNetwork
 from apps.sendings.models import Merch
 
 
+@get_drf_spectacular_view_decorator("reference_books")
 class ReferenceBooksAmbassadorsView(APIView):
     """Обработчик запросов получения списка амбассадоров для выбора в новой отправке мерча."""
 
     def get(self, request):
         ambassadors = Ambassador.objects.all()
-        serializer = RetrieveAmbassadorSerializer(ambassadors, many=True)
+        serializer = AmbassadorReferenceBooksSerializer(ambassadors, many=True)
         return Response(serializer.data)
 
 
+@get_drf_spectacular_view_decorator("reference_books")
 class ReferenceBooksMerchView(APIView):
     """Обработчик запросов для получения справочника мерча."""
 
     def get(self, request):
         merch = Merch.objects.all()
-        serializer = MerchSerializer(merch, many=True)
+        serializer = MerchReferenceBooksSerializer(merch, many=True)
         return Response(serializer.data)
 
 
+@get_drf_spectacular_view_decorator("reference_books")
 class ReferenceBooksProgramsView(APIView):
     """Обработчик запросов для получения справочника програм обучения для анкеты."""
 
@@ -42,15 +48,17 @@ class ReferenceBooksProgramsView(APIView):
         return Response(serializer.data)
 
 
+@get_drf_spectacular_view_decorator("reference_books")
 class ReferenceBooksSocialNetworksView(APIView):
     """Обработчик запросов для получения справочника площадок размещения контента."""
 
     def get(self, request):
         networks = SocialNetwork.objects.all()
-        serializer = SocialNetworkSerializer(networks, many=True)
+        serializer = SocialNetworkReferenceBooksSerializer(networks, many=True)
         return Response(serializer.data)
 
 
+@get_drf_spectacular_view_decorator("reference_books")
 class ReferenceBooksTargetsView(APIView):
     """Обработчик запросов получения справочника целей амбассадорства для анкеты."""
 
