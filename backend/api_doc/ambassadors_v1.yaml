@@ -151,6 +151,118 @@ paths:
               schema:
                 $ref: '#/components/schemas/Response404'
           description: ''
+  /api/v1/merches/:
+    get:
+      operationId: api_v1_merches_list
+      description: Список мерча.)
+      tags:
+      - Merches
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreateListMerch'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+    post:
+      operationId: api_v1_merches_create
+      description: Новый мерч.
+      tags:
+      - Merches
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateListMerch'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateListMerch'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateListMerch'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateListMerch'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+  /api/v1/merches/{id}/:
+    patch:
+      operationId: api_v1_merches_partial_update
+      description: Обновление данных мерча.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this merch.
+        required: true
+      tags:
+      - Merches
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPartialUpdateMerch'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPartialUpdateMerch'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPartialUpdateMerch'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartialUpdateMerch'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response404'
+          description: ''
   /api/v1/reference_books/ambassadors/:
     get:
       operationId: api_v1_reference_books_ambassadors_retrieve
@@ -889,6 +1001,45 @@ components:
       - last_name_from_form
       - link
       - telegram_link_from_form
+    CreateListMerch:
+      type: object
+      description: Сериализатор для получения списка объектов Merch и их создания.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 20
+        type:
+          enum:
+          - Обувь
+          - Одежда
+          - Разное
+          type: string
+          description: |-
+            * `Обувь` - Shoes
+            * `Одежда` - Clothing
+            * `Разное` - Misc
+          x-spec-enum-id: 78b22143520d2832
+        size:
+          type: string
+          maxLength: 10
+        unit_price:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        quantity:
+          type: integer
+          maximum: 32767
+          minimum: 0
+      required:
+      - id
+      - name
+      - quantity
+      - size
+      - type
+      - unit_price
     CreateSending:
       type: object
       description: Сериализатор для создания объекта Sending.
@@ -1119,6 +1270,75 @@ components:
       - created_at
       - id
       - sending_merches
+    PartialUpdateMerch:
+      type: object
+      description: Сериализатор для частичного обновления объекта Merch.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 20
+        type:
+          enum:
+          - Обувь
+          - Одежда
+          - Разное
+          type: string
+          description: |-
+            * `Обувь` - Shoes
+            * `Одежда` - Clothing
+            * `Разное` - Misc
+          x-spec-enum-id: 78b22143520d2832
+        size:
+          type: string
+          maxLength: 10
+        unit_price:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        quantity:
+          type: integer
+          readOnly: true
+      required:
+      - id
+      - name
+      - quantity
+      - size
+      - type
+      - unit_price
+    PatchedPartialUpdateMerch:
+      type: object
+      description: Сериализатор для частичного обновления объекта Merch.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 20
+        type:
+          enum:
+          - Обувь
+          - Одежда
+          - Разное
+          type: string
+          description: |-
+            * `Обувь` - Shoes
+            * `Одежда` - Clothing
+            * `Разное` - Misc
+          x-spec-enum-id: 78b22143520d2832
+        size:
+          type: string
+          maxLength: 10
+        unit_price:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        quantity:
+          type: integer
+          readOnly: true
     PatchedPartialUpdateSending:
       type: object
       description: Сериализатор для частичного обновления объекта Sending.

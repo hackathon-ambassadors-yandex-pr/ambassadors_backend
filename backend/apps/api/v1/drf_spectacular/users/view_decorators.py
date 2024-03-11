@@ -1,11 +1,12 @@
+from drf_spectacular.utils import extend_schema, extend_schema_view
+from rest_framework import status
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
 from apps.api.v1.drf_spectacular.core.serializers import (
     Response400Serializer,
     Response401Serializer,
 )
 from apps.api.v1.users.serializers import UserSerializer
-from drf_spectacular.utils import extend_schema, extend_schema_view
-from rest_framework import status
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 USERS_VIEW_DECORATORS = {
     "TokenObtainPairView": extend_schema_view(

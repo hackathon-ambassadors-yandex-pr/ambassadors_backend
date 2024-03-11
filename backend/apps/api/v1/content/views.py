@@ -1,6 +1,7 @@
+from rest_framework import viewsets
+
 from apps.api.v1.content.serializers import ContentSerializer, PartialContentSerializer
 from apps.content.models import Content
-from rest_framework import viewsets
 
 
 class ContentViewSet(viewsets.ModelViewSet):

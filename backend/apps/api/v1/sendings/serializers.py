@@ -1,9 +1,10 @@
 """Сериализаторы для работы с ресурсами приложения Sendings."""
 
-from apps.ambassadors.models import Address, Ambassador
-from apps.sendings.models import Sending, SendingToMerch
 from django.db import IntegrityError, transaction
 from rest_framework import serializers
+
+from apps.ambassadors.models import Address, Ambassador
+from apps.sendings.models import Sending, SendingToMerch
 
 
 class SendingToMerchSerializer(serializers.ModelSerializer):

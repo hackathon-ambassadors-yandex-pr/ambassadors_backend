@@ -1,9 +1,10 @@
 """Настройки БД приложения Sendings."""
 
-from apps.ambassadors.models import Address
-from apps.sendings.choice_classes import MerchType, SendingStatus
 from django.core.validators import MinValueValidator
 from django.db import models
+
+from apps.ambassadors.models import Address
+from apps.sendings.choice_classes import MerchType, SendingStatus
 
 
 class Merch(models.Model):
@@ -18,6 +19,10 @@ class Merch(models.Model):
         "type",
         max_length=20,
         choices=MerchType.choices,
+    )
+    size = models.CharField(
+        "size",
+        max_length=10,
     )
     unit_price = models.PositiveIntegerField(
         "unit price",
