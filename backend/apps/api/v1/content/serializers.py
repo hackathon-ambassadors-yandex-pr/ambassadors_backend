@@ -16,6 +16,7 @@ class ContentBaseSerialiser(serializers.ModelSerializer):
     """Базовый сериализатор для работы с объектами Content."""
 
     ambassador = AmbassadorSerializer()
+    social_network = serializers.CharField(source="social_network.name")
 
     class Meta:
         model = Content
