@@ -1,0 +1,49 @@
+version: "3.8"
+
+volumes:
+  ambassadors_postgres_data:
+  ambassadors_static:
+  ambassadors_media:
+
+services:
+  ambassadors_postgres:
+    container_name: ambassadors_postgres
+    image: postgres:16.1-alpine
+    env_file:
+      - ../.env.example_local_build_dev
+    restart: on-failure
+    volumes:
+      - ambassadors_postgres_data:/var/lib/postgresql/data/
+
+  ambassadors_back:
+    container_name: ambassadors_back
+    image: yandexambassadors7/backend:local.1.0.0
+    build:
+      context: ../..
+      target: dev
+    env_file:
+      - ../.env.example_local_build_dev
+    restart: on-failure
+    volumes:
+      - ambassadors_static:/app/static/
+      - ambassadors_media:/app/media/
+    depends_on:
+      - ambassadors_postgres
+    command: [
+      "./wait-for-it.sh", "ambassadors_postgres:5432", "--strict", "--timeout=300", "--",
+      "./run_app.dev.sh"
+    ]
+
+  nginx:
+    container_name: nginx
+    image: nginx:1.25-alpine
+    env_file:
+      - ../.env.example_local_build_dev
+    ports:
+      - "80:80"
+    volumes:
+      - ../nginx.conf:/etc/nginx/conf.d/default.conf
+      - ambassadors_static:/var/html/ambassadors/static/
+      - ambassadors_media:/var/html/ambassadors/media/
+    depends_on:
+      - ambassadors_back

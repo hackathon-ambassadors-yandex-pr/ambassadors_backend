@@ -135,6 +135,47 @@ API CRM системы работы с амбассадорами для Ком�
 
 
 <details>
+<summary>локально в контейнерах</summary>
+
+1. Установить [Docker Engine](https://docs.docker.com/engine/install/ubuntu/)
+и [плагин Compose](https://docs.docker.com/compose/install/linux/#install-the-plugin-manually).
+2. Скачать архив репозитория по [ссылке](https://github.com/hackathon-ambassadors-yandex-pr/ambassadors_backend/archive/refs/heads/main.zip)
+и извлечь содержимое архива
+3. Перейти в папку `compose_files/`
+    ```shell
+    cd <path_to_folder>/infra/compose_files
+    ```
+
+4. Выполнить:
+    ```shell
+    docker compose -f docker-compose.build.dev.yml up -d
+    ```
+
+5. В БД будут загружены необходимые для работы проекта данные, а также данные суперпользователя:
+    ```text
+    email - su@su.su
+    пароль - SuperUser
+    ```
+   
+6. После запуска проект доступен по адресам:
+
+- сайт администратора
+    ```markdown
+    http://localhost/admin
+    ```
+
+- Интерактивная документация API
+    ```markdown
+    http://localhost/api/redoc/v1/
+    
+    http://localhost/api/swagger/v1/
+    ```
+
+[⬆️В начало](#оглавление)
+</details>
+
+
+<details>
 <summary>на удалённом сервере</summary>
 
 1. Скопировать на сервер следующие файлы:
