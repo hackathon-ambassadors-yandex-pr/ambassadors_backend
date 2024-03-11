@@ -28,6 +28,7 @@ class Content(models.Model):
         Ambassador,
         on_delete=models.PROTECT,
         null=True,
+        blank=True,
         verbose_name="ambassador",
         related_name="contents",
     )
