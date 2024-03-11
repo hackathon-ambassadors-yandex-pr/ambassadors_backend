@@ -6,9 +6,13 @@ from apps.api.v1.content.serializers import (
     RetrieveContentSerializer,
 )
 from apps.api.v1.content.viewsets import ListRetrievePartialUpdateViewSet
+from apps.api.v1.drf_spectacular.custom_decorators import (
+    get_drf_spectacular_view_decorator,
+)
 from apps.content.models import Content, ContentFile
 
 
+@get_drf_spectacular_view_decorator("contents")
 class ContentListRetrievePartialUpdateViewSet(ListRetrievePartialUpdateViewSet):
     """Обработчик запросов на эндпоинты Contents."""
 

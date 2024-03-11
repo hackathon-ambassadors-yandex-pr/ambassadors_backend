@@ -151,10 +151,117 @@ paths:
               schema:
                 $ref: '#/components/schemas/Response404'
           description: ''
+  /api/v1/contents/:
+    get:
+      operationId: api_v1_contents_list
+      description: Список контента амбассадоров (экран Контент)
+      tags:
+      - Contents
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListContent'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+  /api/v1/contents/{id}/:
+    get:
+      operationId: api_v1_contents_retrieve
+      description: Данные контента амбассадора (карточка)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this content.
+        required: true
+      tags:
+      - Contents
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveContent'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response404'
+          description: ''
+    patch:
+      operationId: api_v1_contents_partial_update
+      description: Обновление данных контента амбассадора (карточка)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this content.
+        required: true
+      tags:
+      - Contents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPartialUpdateContent'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPartialUpdateContent'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPartialUpdateContent'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartialUpdateContent'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response400'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response404'
+          description: ''
   /api/v1/merches/:
     get:
       operationId: api_v1_merches_list
-      description: Список мерча.)
+      description: Список мерча.
       tags:
       - Merches
       security:
@@ -266,62 +373,108 @@ paths:
   /api/v1/reference_books/ambassadors/:
     get:
       operationId: api_v1_reference_books_ambassadors_retrieve
-      description: Обработчик запросов получения списка амбассадоров для выбора в
-        новой отправке мерча.
+      description: Список амбассадоров для выбора в новой отправке мерча
       tags:
-      - api
+      - Reference Books
       security:
       - jwtAuth: []
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AmbassadorReferenceBooks'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
   /api/v1/reference_books/merch/:
     get:
       operationId: api_v1_reference_books_merch_retrieve
-      description: Обработчик запросов для получения справочника мерча.
+      description: Справочник мерча
       tags:
-      - api
+      - Reference Books
       security:
       - jwtAuth: []
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MerchReferenceBooks'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
   /api/v1/reference_books/programs/:
     get:
       operationId: api_v1_reference_books_programs_retrieve
-      description: Обработчик запросов для получения справочника програм обучения
-        для анкеты.
+      description: Справочник программ обучения для анкеты
       tags:
-      - api
+      - Reference Books
       security:
       - jwtAuth: []
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Program'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
   /api/v1/reference_books/social_networks/:
     get:
       operationId: api_v1_reference_books_social_networks_retrieve
-      description: Обработчик запросов для получения справочника площадок размещения
-        контента.
+      description: Справочник площадок размещения контента / активностей амбассадора
       tags:
-      - api
+      - Reference Books
       security:
       - jwtAuth: []
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SocialNetworkReferenceBooks'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
   /api/v1/reference_books/targets/:
     get:
       operationId: api_v1_reference_books_targets_retrieve
-      description: Обработчик запросов получения справочника целей амбассадорства
-        для анкеты.
+      description: Справочник целей амбассадорства для анкеты
       tags:
-      - api
+      - Reference Books
       security:
       - jwtAuth: []
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Target'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response401'
+          description: ''
   /api/v1/sendings/:
     get:
       operationId: api_v1_sendings_list
@@ -757,6 +910,32 @@ components:
       - city
       - code
       - country
+    AddressReferenceBooks:
+      type: object
+      description: Сериализатор для поля address в AmbassadorReferenceBooksSerializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        country:
+          type: string
+          maxLength: 20
+        city:
+          type: string
+          maxLength: 20
+        address:
+          type: string
+          maxLength: 100
+        code:
+          type: string
+          title: Postal code
+          maxLength: 10
+      required:
+      - address
+      - city
+      - code
+      - country
+      - id
     Ambassador:
       type: object
       description: Сериализатор объекта Ambassador для использования в RetrieveSendingSerializer.
@@ -829,6 +1008,28 @@ components:
       - first_name
       - id
       - last_name
+    AmbassadorContentBase:
+      type: object
+      description: Сериализатор для поля ambassador в ContentBaseSerialiser.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 20
+        last_name:
+          type: string
+          maxLength: 20
+        telegram_link:
+          type: string
+          format: uri
+          maxLength: 50
+      required:
+      - first_name
+      - id
+      - last_name
+      - telegram_link
     AmbassadorForm:
       type: object
       description: Сериализатор для обработки данных формы амбассадора.
@@ -936,6 +1137,64 @@ components:
       - targets
       - telegram_link
       - work_place
+    AmbassadorReferenceBooks:
+      type: object
+      description: Сериализатор списка амбассадоров для выбора в новой отправке мерча
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        last_name:
+          type: string
+          maxLength: 20
+        first_name:
+          type: string
+          maxLength: 20
+        middle_name:
+          type: string
+          maxLength: 20
+        clothing_size:
+          enum:
+          - XS
+          - S
+          - M
+          - L
+          - XL
+          type: string
+          description: |-
+            * `XS` - XS
+            * `S` - S
+            * `M` - M
+            * `L` - L
+            * `XL` - XL
+          x-spec-enum-id: 1faf818ca57badf8
+        shoe_size:
+          type: string
+          maxLength: 5
+        telegram_link:
+          type: string
+          format: uri
+          maxLength: 50
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        mobile_phone:
+          type: string
+          maxLength: 20
+        current_address:
+          $ref: '#/components/schemas/AddressReferenceBooks'
+      required:
+      - clothing_size
+      - current_address
+      - email
+      - first_name
+      - id
+      - last_name
+      - middle_name
+      - mobile_phone
+      - shoe_size
+      - telegram_link
     Content:
       type: object
       description: Сериализатор для работы с объектом Content.
@@ -970,6 +1229,19 @@ components:
       - id
       - link
       - uploaded_at
+    ContentFile:
+      type: object
+      description: Сериализатор для работы с объектами ContentFile.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        file:
+          type: string
+          format: uri
+      required:
+      - file
+      - id
     ContentForm:
       type: object
       description: Сериализатор для обработки данных формы контента.
@@ -1238,6 +1510,62 @@ components:
       - last_name
       - registration_date
       - telegram_link
+    ListContent:
+      type: object
+      description: Сериализатор для получения списка объектов Content.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        link:
+          type: string
+          format: uri
+          description: Link to content
+          maxLength: 200
+        status:
+          enum:
+          - Новый
+          - Соответствует
+          - Не соответствует
+          - Уточняется
+          type: string
+          description: |-
+            * `Новый` - New
+            * `Соответствует` - Respond
+            * `Не соответствует` - Not Respond
+            * `Уточняется` - TBC
+          x-spec-enum-id: 69e6e94ffc64f2b6
+        guide_check:
+          type: boolean
+          description: Content on topic of Beginner's Ambassador Guide
+        social_network:
+          type: string
+        first_name_from_form:
+          type: string
+          maxLength: 20
+        last_name_from_form:
+          type: string
+          maxLength: 20
+        telegram_link_from_form:
+          type: string
+          format: uri
+          maxLength: 50
+        ambassador:
+          $ref: '#/components/schemas/AmbassadorContentBase'
+        files_exist:
+          type: boolean
+        uploaded_at:
+          type: string
+          format: date
+          readOnly: true
+          title: Upload date
+      required:
+      - ambassador
+      - files_exist
+      - id
+      - link
+      - social_network
+      - uploaded_at
     ListSending:
       type: object
       description: Сериализатор списка объектов Sending.
@@ -1270,6 +1598,65 @@ components:
       - created_at
       - id
       - sending_merches
+    MerchReferenceBooks:
+      type: object
+      description: Сериализатор для работы с объектом Merch.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          enum:
+          - Обувь
+          - Одежда
+          - Разное
+          type: string
+          description: |-
+            * `Обувь` - Shoes
+            * `Одежда` - Clothing
+            * `Разное` - Misc
+          x-spec-enum-id: 78b22143520d2832
+        name:
+          type: string
+          maxLength: 20
+        unit_price:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+      required:
+      - id
+      - name
+      - type
+      - unit_price
+    PartialUpdateContent:
+      type: object
+      description: Сериализатор для частичного обновления объекта Content.
+      properties:
+        social_network:
+          type: integer
+          nullable: true
+        status:
+          enum:
+          - Новый
+          - Соответствует
+          - Не соответствует
+          - Уточняется
+          type: string
+          description: |-
+            * `Новый` - New
+            * `Соответствует` - Respond
+            * `Не соответствует` - Not Respond
+            * `Уточняется` - TBC
+          x-spec-enum-id: 69e6e94ffc64f2b6
+        guide_check:
+          type: boolean
+          description: Content on topic of Beginner's Ambassador Guide
+        user_comment:
+          type: string
+          title: Comment
+        ambassador:
+          type: integer
+          nullable: true
     PartialUpdateMerch:
       type: object
       description: Сериализатор для частичного обновления объекта Merch.
@@ -1308,6 +1695,35 @@ components:
       - size
       - type
       - unit_price
+    PatchedPartialUpdateContent:
+      type: object
+      description: Сериализатор для частичного обновления объекта Content.
+      properties:
+        social_network:
+          type: integer
+          nullable: true
+        status:
+          enum:
+          - Новый
+          - Соответствует
+          - Не соответствует
+          - Уточняется
+          type: string
+          description: |-
+            * `Новый` - New
+            * `Соответствует` - Respond
+            * `Не соответствует` - Not Respond
+            * `Уточняется` - TBC
+          x-spec-enum-id: 69e6e94ffc64f2b6
+        guide_check:
+          type: boolean
+          description: Content on topic of Beginner's Ambassador Guide
+        user_comment:
+          type: string
+          title: Comment
+        ambassador:
+          type: integer
+          nullable: true
     PatchedPartialUpdateMerch:
       type: object
       description: Сериализатор для частичного обновления объекта Merch.
@@ -1604,6 +2020,61 @@ components:
       - targets
       - telegram_link
       - work_place
+    RetrieveContent:
+      type: object
+      description: Сериализатор для получения подробной информации об объекте Content.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        link:
+          type: string
+          format: uri
+          description: Link to content
+          maxLength: 200
+        status:
+          enum:
+          - Новый
+          - Соответствует
+          - Не соответствует
+          - Уточняется
+          type: string
+          description: |-
+            * `Новый` - New
+            * `Соответствует` - Respond
+            * `Не соответствует` - Not Respond
+            * `Уточняется` - TBC
+          x-spec-enum-id: 69e6e94ffc64f2b6
+        guide_check:
+          type: boolean
+          description: Content on topic of Beginner's Ambassador Guide
+        social_network:
+          type: string
+        first_name_from_form:
+          type: string
+          maxLength: 20
+        last_name_from_form:
+          type: string
+          maxLength: 20
+        telegram_link_from_form:
+          type: string
+          format: uri
+          maxLength: 50
+        ambassador:
+          $ref: '#/components/schemas/AmbassadorContentBase'
+        user_comment:
+          type: string
+          title: Comment
+        content_files:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentFile'
+      required:
+      - ambassador
+      - content_files
+      - id
+      - link
+      - social_network
     RetrieveSending:
       type: object
       description: Сериализатор объекта Sending.
@@ -1731,6 +2202,19 @@ components:
         detail:
           type: string
           default: Не допускается изменение объекта Sending, статус которого не 'Sent'.
+    SocialNetworkReferenceBooks:
+      type: object
+      description: Сериализатор для работы с объектом SocialNetwork.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+      required:
+      - id
+      - name
     Target:
       type: object
       description: Сериализатор для работы с объектом Target.

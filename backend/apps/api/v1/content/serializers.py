@@ -4,7 +4,7 @@ from apps.ambassadors.models import Ambassador
 from apps.content.models import Content, ContentFile
 
 
-class AmbassadorSerializer(serializers.ModelSerializer):
+class AmbassadorContentBaseSerializer(serializers.ModelSerializer):
     """Сериализатор для поля ambassador в ContentBaseSerialiser."""
 
     class Meta:
@@ -15,7 +15,7 @@ class AmbassadorSerializer(serializers.ModelSerializer):
 class ContentBaseSerialiser(serializers.ModelSerializer):
     """Базовый сериализатор для работы с объектами Content."""
 
-    ambassador = AmbassadorSerializer()
+    ambassador = AmbassadorContentBaseSerializer()
     social_network = serializers.CharField(source="social_network.name")
 
     class Meta:

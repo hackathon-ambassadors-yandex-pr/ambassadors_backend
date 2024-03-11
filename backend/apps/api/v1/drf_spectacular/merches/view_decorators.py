@@ -23,7 +23,7 @@ MERCHES_VIEW_DECORATORS = {
             },
         ),
         list=extend_schema(
-            description="Список мерча.)",
+            description="Список мерча.",
             tags=("Merches",),
             responses={
                 status.HTTP_200_OK: CreateListMerchSerializer,
