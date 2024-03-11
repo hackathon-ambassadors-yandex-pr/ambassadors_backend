@@ -1,5 +1,6 @@
-from apps.content.models import Content, ContentFile, SocialNetwork
 from django.contrib import admin
+
+from apps.content.models import Content, ContentFile, SocialNetwork
 
 
 @admin.register(SocialNetwork)

@@ -1,5 +1,10 @@
 """Обработчики запросов на эндпоинты yandex_forms/ API v1."""
 
+from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+
 from apps.api.v1.drf_spectacular.custom_decorators import (
     get_drf_spectacular_view_decorator,
 )
@@ -7,10 +12,6 @@ from apps.api.v1.yandex_forms.serializers import (
     AmbassadorFormSerializer,
     ContentFormSerializer,
 )
-from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
 
 
 @get_drf_spectacular_view_decorator("yandex_forms")

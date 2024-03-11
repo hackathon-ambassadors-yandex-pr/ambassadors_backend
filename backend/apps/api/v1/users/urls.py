@@ -1,9 +1,10 @@
+from django.urls import path
+from rest_framework_simplejwt.views import TokenObtainPairView
+
 from apps.api.v1.drf_spectacular.custom_decorators import (
     get_drf_spectacular_view_decorator,
 )
 from apps.api.v1.users.views import UserViewSet
-from django.urls import path
-from rest_framework_simplejwt.views import TokenObtainPairView
 
 urlpatterns = [
     path(

@@ -1,6 +1,7 @@
+from rest_framework import serializers
+
 from apps.content.models import SocialNetwork
 from apps.sendings.models import Merch
-from rest_framework import serializers
 
 
 class MerchSerializer(serializers.ModelSerializer):

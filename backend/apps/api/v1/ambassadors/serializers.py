@@ -1,7 +1,8 @@
+from rest_framework import serializers
+
 from apps.ambassadors.models import Address, Ambassador, Program, Promocode, Target
 from apps.content.models import Content
 from apps.sendings.models import Sending
-from rest_framework import serializers
 
 
 class AddressSerializer(serializers.ModelSerializer):
